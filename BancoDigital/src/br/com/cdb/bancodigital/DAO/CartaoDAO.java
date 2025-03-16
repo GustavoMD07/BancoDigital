@@ -27,10 +27,11 @@ public class CartaoDAO {
 		if(removido) {
 			System.out.println("Cartão de número " + numCartao + " removido com sucesso!");
 		}
-		else { System.out.println("Não foi possível encontrar o cartão"); }
+		else { System.out.println("Não foi possível encontrar o cartão!"); }
 	}
 	
 	public List<Cartao> listarTodos() {    //aqui ele retorna uma cópia da lista, pra evitar que 
 		return new ArrayList<>(cartoes);   //a lista seja modificada
 	}
+	//teste :)
 }
