@@ -17,6 +17,11 @@ public class ClienteDAO {
 		listaDeClientes.add(cliente);
 	}
 	
+	public void removerCliente(Cliente cliente) {
+		System.out.println(cliente + "\n Cliente removido");
+		listaDeClientes.remove(cliente);
+	}
+	
 	public Cliente buscarCliente(String cpf) {
 		for(Cliente c : listaDeClientes) {
 			if(c.getCpf().equals(cpf)) {

@@ -51,12 +51,8 @@ public abstract class Cartao {
 	}
 
 	public void verificarStatus() {
-		if (status) {
-			System.out.println("Seu cartão está ativado");
-		} else if (!status) {
-			System.out.println("Seu cartão está desativado, ative-o para usa-lo");
-		}
-	}
+		System.out.println(status ? "Seu cartão está ativado!" : "Seu cartão está desativado :(");
+	}   //mais simplificado do que colocar if 2x.
 
 	public String getSenha() {
 		return senha;

@@ -33,5 +33,4 @@ public class CartaoDAO {
 	public List<Cartao> listarTodos() {    //aqui ele retorna uma cópia da lista, pra evitar que 
 		return new ArrayList<>(cartoes);   //a lista seja modificada
 	}
-	//teste :)
 }

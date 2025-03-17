@@ -52,6 +52,10 @@ public class CartaoCredito extends Cartao {
 
 	public void pagarFatura(double valor) {
 
+		if (saldoDevedor <= 0) {
+		    System.out.println("A fatura já está paga!");
+		    return;
+		}
 		if (valor < 0) {
 			System.out.println("Infelizmente, não é possível pagar a fatura com um valor abaixo ou igual a 0!.");
 		}
