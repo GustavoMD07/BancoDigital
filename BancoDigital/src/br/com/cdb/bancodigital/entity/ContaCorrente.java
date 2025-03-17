@@ -8,7 +8,6 @@ public class ContaCorrente extends Conta {
 
 	public ContaCorrente(String titular, int intervalo, TimeUnit tempo) {
 		super(titular, intervalo, tempo);
-		agendarTaxaMensal(intervalo, tempo);
 		tipoDeConta = "Conta Corrente\n";
 	}
 
@@ -31,34 +30,38 @@ public class ContaCorrente extends Conta {
 	}
 
 	@Override
-	public void saque(double valor) {
+	public boolean saque(double valor) {
 		if (valor > saldo) {
 			System.out.println("Não foi possível realizar a operação. Saldo bancário insuficiente");
 			transf = false;
+			return false;
 		} else {
 			retirarSaldo(valor);
 			System.out.println("Seu saque de R$ " + valor + " Foi concluído com êxito");
 			transf = true;
+			return true;
 		}
 
 	}
 
 	@Override
-	public void transferencia(double valor, Conta conta) {
-		if(saldo >= valor && valor > 0) {
+	public boolean transferencia(double valor, Conta conta) {
+		if (saldo >= valor && valor > 0) {
 			conta.addSaldo(valor);
 			System.out.println("Transferência de: R$ " + valor + " concluída");
 			saldo -= valor;
+			return true;
+		} else {
+			System.out.println("Não foi possível realizar a operação");
+			return false;
 		}
-		else { System.out.println("Não foi possível realizar a operação"); }
 	}
 
 	@Override
 	public void taxa() {
-		if(saldo <= taxa) {
+		if (saldo <= taxa) {
 			System.out.println("Não foi possível cobrar a taxa, saldo insuficiente");
-		}
-		else {
+		} else {
 			saldo -= taxa;
 			System.out.println("Taxa mensal de R$ " + taxa + " aplicada à conta corrente.");
 			System.out.println("Novo saldo: R$ " + saldo);

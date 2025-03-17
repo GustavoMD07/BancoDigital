@@ -14,7 +14,7 @@ public class ContaDAO {
 	public Conta buscarConta(Conta conta) {
 		for (Cliente cliente : clienteDAO.getListaDeClientes()) {
 			for (Conta contas : cliente.getTodasAsContas()) {
-				if (contas.equals(conta)) {
+				if (contas.getID().equals(conta.getID())) {
 					System.out.println(contas);
 					return contas;
 				}

@@ -13,19 +13,19 @@ public class CartaoDAO {
 		System.out.println("Cartão salvo com sucesso || Num: " + cartao.getNumCartao());
 	}
 	
-	public Cartao buscarCartao(double numCartao) {
+	public Cartao buscarCartao(int id) {
 		for (Cartao c : cartoes) {
-			if(c.getNumCartao() == numCartao) {
+			if(c.getId().equals(c.getId())) {
 				return c;
 			}
 		}
 		return null;
 	}
 	
-	public void removerCartao(double numCartao) {
-		boolean removido = cartoes.removeIf(cartao -> cartao.getNumCartao() == numCartao);
+	public void removerCartao(int id) {
+		boolean removido = cartoes.removeIf(cartao -> cartao.getId() == id);
 		if(removido) {
-			System.out.println("Cartão de número " + numCartao + " removido com sucesso!");
+			System.out.println("Cartão de ID: " + id + " removido com sucesso!");
 		}
 		else { System.out.println("Não foi possível encontrar o cartão!"); }
 	}

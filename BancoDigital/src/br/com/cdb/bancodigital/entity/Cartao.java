@@ -1,17 +1,21 @@
 package br.com.cdb.bancodigital.entity;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Cartao {
 
+	private static final AtomicInteger contador = new AtomicInteger(0);  // Contador para gerar IDs únicos
 	protected String tipoDeCartao;
 	protected boolean status;
 	protected String senha;
 	protected double numCartao;
 	protected Conta conta;
 	protected String nome;
+	private final Integer id;  
 
 	public Cartao(String senha, double numCartao, Conta conta) {
 		this.senha = senha;
 		this.numCartao = numCartao;
+		this.id = contador.incrementAndGet(); //gerando ID único pra cada cartão
 		this.conta = conta;
 		this.status = true;
 		this.nome = conta.getTitular();
@@ -33,6 +37,10 @@ public abstract class Cartao {
 		this.senha = novaSenha;
 		System.out.println("Sua senha do cartão foi alterada para: " + novaSenha);
 	}
+	
+	public void verificarId() {
+		System.out.println("ID: " + id );
+	}
 
 	public abstract void aplicarTaxas();
 	public abstract void realizarPagamento(double valor);
@@ -40,8 +48,7 @@ public abstract class Cartao {
 	public void infoGeral(Cartao c) {
 
 		System.out.println("Nome: " + nome + " || Senha: " + senha + "  \nNum: " + numCartao + "|| Status: " + status
-				+ "\nTipo de cartão: " + tipoDeCartao);
-
+		+ "\nTipo de cartão: " + tipoDeCartao);
 	}
 
 	@Override
@@ -60,5 +67,9 @@ public abstract class Cartao {
 
 	public double getNumCartao() {
 		return numCartao;
+	}
+	
+	public Integer getId() {
+		return id;
 	}
 }

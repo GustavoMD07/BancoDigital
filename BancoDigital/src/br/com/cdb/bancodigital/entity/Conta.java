@@ -1,23 +1,26 @@
 package br.com.cdb.bancodigital.entity;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Conta {
 
+	private static final AtomicInteger contador = new AtomicInteger(0);  // Contador para gerar IDs únicos
 	private String titular; //(nome)
-	private double ID;
+	private Integer ID;
 	protected double saldo;
 	protected boolean transf;
 	protected String tipoDeConta;
 	
 	public Conta(String titular, int intervalo, TimeUnit tempo) {
 		this.titular = titular;
-		this.saldo = 0; 						//saldo 0 toda vez que for criar uma nova conta
+		this.saldo = 0; //saldo 0 toda vez que for criar uma nova conta
+		this.ID = contador.incrementAndGet(); //gerando ID único pra cada cartão
 		agendarTaxaMensal(intervalo, tempo);
 	}
 	
 	public abstract void depositar(double valor);
-	public abstract void saque(double valor);
-	public abstract void transferencia(double valor, Conta conta) ;
+	public abstract boolean saque(double valor);
+	public abstract boolean transferencia(double valor, Conta conta) ;
 	public abstract void taxa();
 	public abstract void saldo();
 	
@@ -52,11 +55,11 @@ public abstract class Conta {
 		this.titular = titular;
 	}
 	
-	public double getID() {
+	public Integer getID() {
 		return ID;
 	}
 	
-	public void setID(double ID) {
+	public void setID(Integer ID) {
 		this.ID = ID;
 	}
 	
