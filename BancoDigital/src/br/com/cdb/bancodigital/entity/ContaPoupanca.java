@@ -29,8 +29,8 @@ public class ContaPoupanca extends Conta { // taxa de rendimento = 0,672%
 
 	@Override
 	public boolean saque(double valor) {
-
-		if (valor > saldo) {
+		
+		if (valor > saldo && valor < 0) {
 			System.out.println("Não foi possível realizar a operação. Saldo bancário insuficiente");
 			transf = false;
 			return false;

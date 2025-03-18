@@ -15,7 +15,7 @@ public class CartaoDAO {
 	
 	public Cartao buscarCartao(int id) {
 		for (Cartao c : cartoes) {
-			if(c.getId().equals(c.getId())) {
+			if(c.getId().equals (id)) {
 				return c;
 			}
 		}
@@ -30,7 +30,7 @@ public class CartaoDAO {
 		else { System.out.println("Não foi possível encontrar o cartão!"); }
 	}
 	
-	public List<Cartao> listarTodos() {    //aqui ele retorna uma cópia da lista, pra evitar que 
-		return new ArrayList<>(cartoes);   //a lista seja modificada
+	public List<Cartao> listarCartoes() {    //aqui ele retorna uma cópia da lista, pra evitar alteração na lista
+		return new ArrayList<>(cartoes);   
 	}
 }

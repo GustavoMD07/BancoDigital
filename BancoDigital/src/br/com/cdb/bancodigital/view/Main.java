@@ -19,8 +19,8 @@ public class Main {
 		
 		ContaCorrente conta = new ContaCorrente("Gustavo", 10, TimeUnit.DAYS);
 		
-     	CartaoDebito cartao = new CartaoDebito("asd", 1000, 400, conta);
-     	Cartao cartaoC = new CartaoCredito("asd", 1000, 400, conta);
+     	CartaoDebito cartao = new CartaoDebito("asd", "1000", 400, conta);
+     	Cartao cartaoC = new CartaoCredito("asd", "1000", 400, conta);
 		ContaPoupanca contaP = new ContaPoupanca("Henrique", 10, TimeUnit.DAYS);
 		
 		

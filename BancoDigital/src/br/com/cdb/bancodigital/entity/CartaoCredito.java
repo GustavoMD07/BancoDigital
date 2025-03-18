@@ -9,7 +9,7 @@ public class CartaoCredito extends Cartao {
 	protected double gastoMensal;
 	private LocalDate mesAtual;
 
-	public CartaoCredito(String senha, double numCartao, double limiteCredito, Conta conta) {
+	public CartaoCredito(String senha, String numCartao, double limiteCredito, Conta conta) {
 		super(senha, numCartao, conta);
 		this.limiteCredito = limiteCredito;
 		this.mesAtual = LocalDate.now();

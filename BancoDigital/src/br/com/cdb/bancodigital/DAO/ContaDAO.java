@@ -1,34 +1,50 @@
 package br.com.cdb.bancodigital.DAO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.cdb.bancodigital.entity.*;
 
 public class ContaDAO {
 
 	protected ClienteDAO clienteDAO;
-	protected Cliente cliente;
 
 	public ContaDAO(ClienteDAO clienteDAO) {
 		this.clienteDAO = clienteDAO;
 	}
 
-	public Conta buscarConta(Conta conta) {
+	
+	public List<Conta> buscarContasPorTitular(String titular) {
+		List<Conta> contasEncontradas = new ArrayList<>();
 		for (Cliente cliente : clienteDAO.getListaDeClientes()) {
-			for (Conta contas : cliente.getTodasAsContas()) {
-				if (contas.getID().equals(conta.getID())) {
-					System.out.println(contas);
-					return contas;
-				}
+			if(cliente.getNome().equalsIgnoreCase(titular)) {
+				contasEncontradas.addAll(cliente.getTodasAsContas());
 			}
 		}
-		return null;
+		
+		if(contasEncontradas.isEmpty()) {
+			System.out.println("Erro. Não foi encontrado contas pelo titular: " + titular);
+		}
+		return contasEncontradas;
+	}
+	
+	public Conta buscarContaPorId(int idConta) {
+	    for (Cliente cliente : clienteDAO.getListaDeClientes()) {
+	        for (Conta conta : cliente.getTodasAsContas()) {
+	            if (conta.getID() == idConta) {
+	                return conta;
+	            }
+	        }
+	    }
+	    return null; // Conta não encontrada
 	}
 
 	public void listarContas() {
 		for (Cliente cliente : clienteDAO.getListaDeClientes()) {
 			System.out.println(cliente);
 			if (cliente != null && cliente.getTodasAsContas() != null) {
+				System.out.println(" ======  LISTA DE CONTAS:  ======");
 				for (Conta conta : cliente.getTodasAsContas()) {
-					System.out.println(" ======  LISTA DE CONTAS:  ======");
 					System.out.println(conta);
 				}
 			} else {

@@ -8,7 +8,7 @@ public class ContaCorrente extends Conta {
 
 	public ContaCorrente(String titular, int intervalo, TimeUnit tempo) {
 		super(titular, intervalo, tempo);
-		tipoDeConta = "Conta Corrente\n";
+		tipoDeConta = "Conta Corrente";
 	}
 
 	@Override
@@ -31,7 +31,8 @@ public class ContaCorrente extends Conta {
 
 	@Override
 	public boolean saque(double valor) {
-		if (valor > saldo) {
+		
+		if (valor > saldo && valor < 0) {
 			System.out.println("Não foi possível realizar a operação. Saldo bancário insuficiente");
 			transf = false;
 			return false;

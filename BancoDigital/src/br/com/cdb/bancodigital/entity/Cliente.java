@@ -1,4 +1,4 @@
-	package br.com.cdb.bancodigital.entity;
+package br.com.cdb.bancodigital.entity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +31,10 @@ public abstract class Cliente {
 	}
 	
 	public List<Conta> getTodasAsContas() {
-		todasAsContas.addAll(contaCorrente);
-		todasAsContas.addAll(contaPoupanca);
-		return todasAsContas;
+		List<Conta> todas = new ArrayList<>();
+		todas.addAll(contaCorrente);
+		todas.addAll(contaPoupanca);
+		return todas;
 	}
 	
 	public void adicionarConta(Conta conta) {            //usando o instaceof pra identificar se é uma conta corrente ou 

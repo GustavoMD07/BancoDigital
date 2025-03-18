@@ -11,7 +11,7 @@ public class CartaoDebito extends Cartao {
 	protected double limiteDiario;
 	protected double limiteDiarioInicial;
 	
-	public CartaoDebito(String senha, double numCartao, double limiteDiario, Conta conta) {
+	public CartaoDebito(String senha, String numCartao, double limiteDiario, Conta conta) {
 		super(senha, numCartao, conta);
 		this.limiteDiario = limiteDiario;
 		this.limiteDiarioInicial = limiteDiario;

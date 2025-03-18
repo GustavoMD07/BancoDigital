@@ -7,12 +7,12 @@ public abstract class Cartao {
 	protected String tipoDeCartao;
 	protected boolean status;
 	protected String senha;
-	protected double numCartao;
+	protected String numCartao;
 	protected Conta conta;
 	protected String nome;
 	private final Integer id;  
 
-	public Cartao(String senha, double numCartao, Conta conta) {
+	public Cartao(String senha, String numCartao, Conta conta) {
 		this.senha = senha;
 		this.numCartao = numCartao;
 		this.id = contador.incrementAndGet(); //gerando ID único pra cada cartão
@@ -65,7 +65,7 @@ public abstract class Cartao {
 		return senha;
 	}
 
-	public double getNumCartao() {
+	public String getNumCartao() {
 		return numCartao;
 	}
 	

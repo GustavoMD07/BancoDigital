@@ -1,6 +1,7 @@
 package br.com.cdb.bancodigital.DAO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.cdb.bancodigital.entity.*;
 
@@ -13,6 +14,11 @@ public class ClienteDAO {
 	}
 
 	public void addCliente(Cliente cliente) {
+		if(buscarCliente(cliente.getCpf()) != null) {
+			System.out.println("Erro!. Já existe um cliente com esse cpf.");
+			return; //verificando se já tem um cliente com o cpf, se sim, ele sai desse código
+		}
+		
 		System.out.println(cliente + "\n Cliente adicionado\n");
 		listaDeClientes.add(cliente);
 	}
@@ -32,10 +38,8 @@ public class ClienteDAO {
 		return null;
 	}
 	
-	public void listarClientes() {
-		for(Cliente c : listaDeClientes) {
-			System.out.println(c);
-		}
+	public List<Cliente> listarClientes() {
+		return new ArrayList<>(listaDeClientes);
 	}
 	
 	public void addConta(Cliente cliente, Conta conta) {

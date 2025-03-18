@@ -1,14 +1,16 @@
 package br.com.cdb.bancodigital.service;
 
 import br.com.cdb.bancodigital.entity.Conta;
+import br.com.cdb.bancodigital.DAO.ContaDAO;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContaService {
 
-	private List<Conta> contas;
+	private ContaDAO contaDAO;
 	
-	public ContaService(List<Conta> contas) {
-		this.contas = contas;
+	public ContaService(ContaDAO contaDAO) {
+		this.contaDAO = contaDAO;
 	}
 	
 	public boolean transferencia(double valor, Conta origem, Conta destino) {
@@ -33,6 +35,8 @@ public class ContaService {
 		conta.depositar(valor);
 		return true;
 	}
+	
+	
 	public boolean sacar(double valor, Conta conta) {
 		if (conta == null) {
 			System.out.println("Erro. Conta não encontrada / inválida");
@@ -41,25 +45,19 @@ public class ContaService {
 		return conta.saque(valor);
 	}
 	
-	public Conta buscarContaPorTitular(String titular) {
-		for (Conta conta : contas) {
-			if(conta.getTitular().equalsIgnoreCase(titular)) {
-				return conta;
-			}
-		}
-		System.out.println("Conta não encontrada para o titular: " + titular);
-		return null;
+	public List<Conta> buscarContaPorTitular(String titular) {
+		System.out.println("Contas do titular:");
+		return contaDAO.buscarContasPorTitular(titular);
 	}
-
-
-
-
-
-
-
-
-
-
-
+	
+	public Conta buscarContaPorId(int idConta) {
+	    Conta conta = contaDAO.buscarContaPorId(idConta);
+	    if (conta == null) {
+	        System.out.println("Erro. Conta não encontrada para o ID: " + idConta);
+	    }
+	    return conta;
+	}
+	
+	
 
 }

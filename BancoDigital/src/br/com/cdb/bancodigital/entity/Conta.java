@@ -6,7 +6,7 @@ public abstract class Conta {
 
 	private static final AtomicInteger contador = new AtomicInteger(0);  // Contador para gerar IDs únicos
 	private String titular; //(nome)
-	private Integer ID;
+	protected Integer ID;
 	protected double saldo;
 	protected boolean transf;
 	protected String tipoDeConta;
@@ -14,7 +14,7 @@ public abstract class Conta {
 	public Conta(String titular, int intervalo, TimeUnit tempo) {
 		this.titular = titular;
 		this.saldo = 0; //saldo 0 toda vez que for criar uma nova conta
-		this.ID = contador.incrementAndGet(); //gerando ID único pra cada cartão
+		this.ID = contador.incrementAndGet(); //gerando ID único pra cada conta
 		agendarTaxaMensal(intervalo, tempo);
 	}
 	
@@ -33,9 +33,6 @@ public abstract class Conta {
 	        e.printStackTrace(); // Imprime a stack trace para debug
 	    }
 	}
-	
-	
-	
 	
 	//Getters and Setters, não precisa mexer daqui pra baixo
 	
