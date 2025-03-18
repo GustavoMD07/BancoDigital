@@ -44,7 +44,7 @@ public class ContaService {
 		 conta.saque(valor);
 	}
 	
-	public List<Conta> buscarContaPorTitular(String titular) {
+	public List<Conta> buscarContaPorTitular(String titular) { 
 		System.out.println("Contas do titular:");
 		return contaDAO.buscarContasPorTitular(titular);
 	}

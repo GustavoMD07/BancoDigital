@@ -7,11 +7,9 @@ import br.com.cdb.bancodigital.entity.*;
 
 public class ClienteDAO {
 	
-	 protected ArrayList<Cliente> listaDeClientes = new ArrayList<>();
+	private ArrayList<Cliente> listaDeClientes = new ArrayList<>();
 	
-	public ArrayList<Cliente> getListaDeClientes() {
-		return listaDeClientes;
-	}
+	
 
 	public void addCliente(Cliente cliente) {
 		if(buscarCliente(cliente.getCpf()) != null) {
@@ -28,6 +26,24 @@ public class ClienteDAO {
 		listaDeClientes.remove(cliente);
 	}
 	
+	public void addConta(Cliente cliente, Conta conta) {
+		cliente = buscarCliente(cliente.getCpf());
+		if(cliente == null) {
+			System.out.println("Cliente não encontrado!");
+			return;
+		}
+		cliente.adicionarConta(conta);
+	}
+	
+	public void removerConta(Cliente cliente, Conta conta) {
+		cliente = buscarCliente(cliente.getCpf());
+		if(cliente == null) {
+			System.out.println("Cliente não encontrado");
+			return;
+		}
+		cliente.removerConta(conta);
+	}
+	
 	public Cliente buscarCliente(String cpf) {
 		for(Cliente c : listaDeClientes) {
 			if(c.getCpf().equals(cpf)) {
@@ -39,15 +55,12 @@ public class ClienteDAO {
 	}
 	
 	public List<Cliente> listarClientes() {
-		return new ArrayList<>(listaDeClientes);
+		return new ArrayList<>(listaDeClientes); //cópia da lista pra evitar modificações ou erros
 	}
 	
-	public void addConta(Cliente cliente, Conta conta) {
-		cliente = buscarCliente(cliente.getCpf());
-		if(cliente != null) {
-			cliente.adicionarConta(conta);
-		}
-		
-		else { System.out.println("Cliente não encontrado!"); }
+	public ArrayList<Cliente> getListaDeClientes() {
+		return listaDeClientes;
 	}
+	
+	
 }

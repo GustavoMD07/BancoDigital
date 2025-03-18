@@ -7,7 +7,7 @@ import br.com.cdb.bancodigital.entity.*;
 
 public class ContaDAO {
 
-	protected ClienteDAO clienteDAO;
+	private ClienteDAO clienteDAO;
 
 	public ContaDAO(ClienteDAO clienteDAO) {
 		this.clienteDAO = clienteDAO;

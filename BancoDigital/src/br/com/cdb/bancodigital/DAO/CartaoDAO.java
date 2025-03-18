@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CartaoDAO {
 
-	private List<Cartao> cartoes = new ArrayList<>();
+	private ArrayList<Cartao> cartoes = new ArrayList<>();
 	
 	public void addCartao(Cartao cartao) {
 		cartoes.add(cartao);
@@ -22,15 +22,13 @@ public class CartaoDAO {
 		return null;
 	}
 	
-	public void removerCartao(int id) {
-		boolean removido = cartoes.removeIf(cartao -> cartao.getId() == id);
-		if(removido) {
-			System.out.println("Cartão de ID: " + id + " removido com sucesso!");
-		}
-		else { System.out.println("Não foi possível encontrar o cartão!"); }
+	public void removerCartao(Cartao cartao) {
+		cartoes.remove(cartao);
+		System.out.println("Cartão removido com sucesso!.");
 	}
 	
 	public List<Cartao> listarCartoes() {    //aqui ele retorna uma cópia da lista, pra evitar alteração na lista
 		return new ArrayList<>(cartoes);   
 	}
+	
 }

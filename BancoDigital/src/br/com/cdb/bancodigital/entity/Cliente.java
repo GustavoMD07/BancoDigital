@@ -48,6 +48,17 @@ public abstract class Cliente {
 		}
 	}
 	
+	public void removerConta(Conta conta) {
+		if (conta instanceof ContaCorrente) {			 // uma conta poupança, ele vai adicionar no lugar certo
+			this.contaCorrente.remove((ContaCorrente) conta);
+			System.out.println("Conta corrente removida : " + conta + "\n");
+		}
+		else if (conta instanceof ContaPoupanca) {
+			this.contaPoupanca.remove((ContaPoupanca) conta);
+			System.out.println("Conta poupança removida : " + conta + "\n");
+		}
+	}
+	
 	public void info() { //faz a mesma coisa que o toString, é só pra deixar mais informativo e ter um info
 		System.out.println("Nome: " + nome + "\nCPF: " + cpf + "\n Tipo de cliente: " + tipoDeCliente);
 	}
