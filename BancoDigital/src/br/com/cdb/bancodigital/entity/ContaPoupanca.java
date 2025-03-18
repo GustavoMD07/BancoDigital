@@ -1,14 +1,13 @@
 package br.com.cdb.bancodigital.entity;
 
-import java.util.concurrent.TimeUnit;
 
 public class ContaPoupanca extends Conta { // taxa de rendimento = 0,672%
 
 	private static final double taxa = 0.0672;
 
-	public ContaPoupanca(String titular, int intervalo, TimeUnit tempo) {
-		super(titular, intervalo, tempo);
-		tipoDeConta = "Conta Poupança\n";
+	public ContaPoupanca(String titular) {
+		super(titular);
+		tipoDeConta = "Conta Poupança";
 	}
 
 	@Override
@@ -64,7 +63,7 @@ public class ContaPoupanca extends Conta { // taxa de rendimento = 0,672%
 			System.out.println("Não foi possível render ");
 		} else {
 			saldo += saldo * taxa;
-			System.out.println("Rendimento diário aplicado à conta poupança.");
+			System.out.println("Rendimento mensal aplicado à conta poupança.");
 			System.out.println("Novo saldo: R$ " + saldo);
 		}
 	}

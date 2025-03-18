@@ -1,4 +1,6 @@
 package br.com.cdb.bancodigital.entity;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -11,11 +13,11 @@ public abstract class Conta {
 	protected boolean transf;
 	protected String tipoDeConta;
 	
-	public Conta(String titular, int intervalo, TimeUnit tempo) {
+	public Conta(String titular) {
 		this.titular = titular;
 		this.saldo = 0; //saldo 0 toda vez que for criar uma nova conta
 		this.ID = contador.incrementAndGet(); //gerando ID único pra cada conta
-		agendarTaxaMensal(intervalo, tempo);
+		agendarTaxaMensal();
 	}
 	
 	public abstract void depositar(double valor);
@@ -24,13 +26,14 @@ public abstract class Conta {
 	public abstract void taxa();
 	public abstract void saldo();
 	
-	protected void agendarTaxaMensal(int intervalo, TimeUnit tempo) {
+	protected void agendarTaxaMensal() {
 		try {
 	        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-	        scheduler.scheduleAtFixedRate(this::taxa, intervalo, intervalo, tempo);
+	        long delay = calcularDelay(); //aqui ele calcula o delay (tempo) até o próximo mês
+	        long intervalo = TimeUnit.DAYS.toMillis(30); //convertendo 30 dias pra milliseconds
+	        scheduler.scheduleAtFixedRate(this::taxa, delay, intervalo, TimeUnit.MILLISECONDS);
 	    } catch (Exception e) {
 	        System.out.println("Erro ao agendar taxa: " + e.getMessage());
-	        e.printStackTrace(); // Imprime a stack trace para debug
 	    }
 	}
 	
@@ -72,6 +75,15 @@ public abstract class Conta {
 		System.out.println("\nNome do titular: " + titular + "\nSaldo: R$ " + saldo + "\nTipo de conta: " + tipoDeConta);
 	}
 	
+	private long calcularDelay() {
+        // Vamos calcular o delay até o próximo dia 1º do mês
+        LocalDate hoje = LocalDate.now();
+        LocalDate primeiroDiaProximoMes = hoje.withDayOfMonth(1).plusMonths(1);
+        
+        // Calcular o número de milissegundos até o próximo dia 1º
+        long delay = ChronoUnit.MILLIS.between(hoje.atStartOfDay(), primeiroDiaProximoMes.atStartOfDay());
+        return delay;
+	}
 	
 	
 	

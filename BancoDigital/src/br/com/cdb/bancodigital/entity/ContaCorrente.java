@@ -1,13 +1,11 @@
 package br.com.cdb.bancodigital.entity;
 
-import java.util.concurrent.TimeUnit;
-
 public class ContaCorrente extends Conta {
 
 	private static final double taxa = 10.00; // taxa mensal
 
-	public ContaCorrente(String titular, int intervalo, TimeUnit tempo) {
-		super(titular, intervalo, tempo);
+	public ContaCorrente(String titular) {
+		super(titular);
 		tipoDeConta = "Conta Corrente";
 	}
 
@@ -64,7 +62,7 @@ public class ContaCorrente extends Conta {
 			System.out.println("Não foi possível cobrar a taxa, saldo insuficiente");
 		} else {
 			saldo -= taxa;
-			System.out.println("Taxa mensal de R$ " + taxa + " aplicada à conta corrente.");
+			System.out.println("Taxa mensal de R$ " + taxa + " descontada à conta corrente.");
 			System.out.println("Novo saldo: R$ " + saldo);
 		}
 	}
