@@ -6,7 +6,7 @@ public class ClienteComum extends Cliente {
 
 	public ClienteComum(String nome, String cpf) {
 		super(nome, cpf);
-		tipoDeCliente = "Cliente comum\n";
+		tipoDeCliente = "Cliente Comum";
 	}
 
 }

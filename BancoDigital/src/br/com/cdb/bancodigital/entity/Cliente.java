@@ -62,6 +62,9 @@ public abstract class Cliente {
 	
 	//getters and setters, não precisa mexer daqui pra baixo
 	
+	public String getTipoDeCliente() {
+		return tipoDeCliente;
+	}
 	
 	public String getCpf() {
 		return cpf;

@@ -27,22 +27,21 @@ public class ContaService {
 		return origem.transferencia(valor, destino);
 	}
 
-	public boolean depositar(double valor, Conta conta) {
+	public void depositar(double valor, Conta conta) {
 		if(conta == null) {
 			System.out.println("Erro. Conta não encontrada / inválida");
-			return false;
+			return;
 		}
 		conta.depositar(valor);
-		return true;
 	}
 	
 	
-	public boolean sacar(double valor, Conta conta) {
+	public void sacar(double valor, Conta conta) {
 		if (conta == null) {
 			System.out.println("Erro. Conta não encontrada / inválida");
-			return false;
+			return;
 		}
-		return conta.saque(valor);
+		 conta.saque(valor);
 	}
 	
 	public List<Conta> buscarContaPorTitular(String titular) {

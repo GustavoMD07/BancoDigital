@@ -10,6 +10,7 @@ public abstract class Cartao {
 	protected String numCartao;
 	protected Conta conta;
 	protected String nome;
+
 	private final Integer id;  
 
 	public Cartao(String senha, String numCartao, Conta conta) {
@@ -71,5 +72,9 @@ public abstract class Cartao {
 	
 	public Integer getId() {
 		return id;
+	}
+	
+	public String getNome() {
+		return nome;
 	}
 }

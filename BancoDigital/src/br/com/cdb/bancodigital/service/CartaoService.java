@@ -13,46 +13,48 @@ public class CartaoService {
 		return cartao.getSenha().equals(senha); // método de verificação de senha para poder prosseguir
 	}
 
-	public boolean ativarCartao(Integer id, String senha) {
+	public void ativarCartao(Integer id, String senha) {
 		Cartao cartao = cartaoDao.buscarCartao(id);
-		if (cartao != null) {
-			if (verificarSenha(cartao, senha)) {
-				return cartao.ativar();
-			} else {
-				System.out.println("Senha incorreta, não foi possível ativar o cartão");
-			}
+		if (cartao == null) {
+			System.out.println("Cartão não encontrado!.");
+			return;
 		}
-		System.out.println("Cartão não encontrado");
-		return false;
+		if (verificarSenha(cartao, senha)) {
+			cartao.ativar();
+		} else {
+			System.out.println("Senha incorreta, não foi possível ativar o cartão");
+		}
 	}
-	
-	public boolean desativarCartao(Integer id, String senha) {
+
+	public void desativarCartao(Integer id, String senha) {
 		Cartao cartao = cartaoDao.buscarCartao(id);
-		if (cartao != null) {
-			if (verificarSenha(cartao, senha)) {
-				return cartao.desativar();
-			} else {
-				System.out.println("Senha incorreta, não foi possível desativar o cartão");
-			}
+		if (cartao == null) {
+			System.out.println("Cartão não encontrado");
+			return;
 		}
-		System.out.println("Cartão não encontrado");
-		return false;
+		
+		if (verificarSenha(cartao, senha)) {
+			cartao.desativar();
+		} 
+		else {
+			System.out.println("Senha incorreta, não foi possível desativar o cartão");
+		}
 	}
-	
+
 	public void alterarSenha(Integer id, String senhaAntiga, String novaSenha) {
 		Cartao cartao = cartaoDao.buscarCartao(id);
-		if(cartao != null) {
-			if (verificarSenha(cartao, senhaAntiga)) {
-				cartao.alterarSenha(novaSenha);
-				System.out.println("Senha do cartão alterada com sucesso! \n nova senha: " + novaSenha);
-			}
-			else {
-				System.out.println("Senha incorreta. Não foi possível redefinir a senha");
-			}
-		}
-		else {
+		if (cartao == null) {
 			System.out.println("Cartão não encontrado!");
+			return;
+		}
+		
+		if (verificarSenha(cartao, senhaAntiga)) {
+			cartao.alterarSenha(novaSenha);
+			System.out.println("Senha do cartão alterada com sucesso! \n nova senha: " + novaSenha);
+		} 
+		else {
+			System.out.println("Senha incorreta. Não foi possível redefinir a senha");
 		}
 	}
-	
+
 }

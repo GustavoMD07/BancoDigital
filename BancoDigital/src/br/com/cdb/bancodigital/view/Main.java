@@ -23,9 +23,8 @@ public class Main {
      	Cartao cartaoC = new CartaoCredito("asd", "1000", 400, conta);
 		ContaPoupanca contaP = new ContaPoupanca("Henrique", 10, TimeUnit.DAYS);
 		
-		
-		cartao.verificarId();
-		cartaoC.verificarId();		
+//		cartao.verificarId();
+//		cartaoC.verificarId();		
 		
 		
 		
