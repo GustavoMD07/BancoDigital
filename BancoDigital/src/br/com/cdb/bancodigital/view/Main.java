@@ -2,7 +2,6 @@ package br.com.cdb.bancodigital.view; //fazendo o view pra ser o visual do códi
 
 //import java.util.Scanner;
 
-import java.util.concurrent.*;
 import br.com.cdb.bancodigital.DAO.*; //importando os outros pacotes pra ficar no formato MVC
 import br.com.cdb.bancodigital.entity.*;
 
@@ -17,11 +16,11 @@ public class Main {
 		Cliente clienteP = new ClientePremium("Henrique", "2");
 
 		
-		ContaCorrente conta = new ContaCorrente("Gustavo", 10, TimeUnit.DAYS);
+		ContaCorrente conta = new ContaCorrente("Gustavo");
 		
      	CartaoDebito cartao = new CartaoDebito("asd", "1000", 400, conta);
      	Cartao cartaoC = new CartaoCredito("asd", "1000", 400, conta);
-		ContaPoupanca contaP = new ContaPoupanca("Henrique", 10, TimeUnit.DAYS);
+		ContaPoupanca contaP = new ContaPoupanca("Henrique");
 		
 //		cartao.verificarId();
 //		cartaoC.verificarId();		

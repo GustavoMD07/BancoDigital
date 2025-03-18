@@ -1,4 +1,5 @@
 package br.com.cdb.bancodigital.entity;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ public abstract class Cliente {
 	
 	protected String cpf;
 	protected String nome;
-	private long dataDeNascimento;
+	protected LocalDate dataNascimento;
 	private String endereco;
 	protected String tipoDeCliente;
 	protected List<ContaPoupanca> contaPoupanca;
@@ -22,9 +23,10 @@ public abstract class Cliente {
 		return contaCorrente;
 	}
 
-	public Cliente(String nome, String cpf) {
+	public Cliente(String nome, String cpf, LocalDate dataDeNascimento) {
 		this.nome = nome;
 		this.cpf = cpf;
+		this.dataNascimento = dataDeNascimento;
 		this.contaCorrente = new ArrayList<>();
 		this.contaPoupanca = new ArrayList<>();
 		this.todasAsContas = new ArrayList<>();
@@ -93,12 +95,8 @@ public abstract class Cliente {
 		this.nome = nome;
 	}
 
-	public long getDataDeNascimento() {
-		return dataDeNascimento;
-	}
-
-	public void setDataDeNascimento(long dataDeNascimento) {
-		this.dataDeNascimento = dataDeNascimento;
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
 	}
 
 	public String getEndereco() {
