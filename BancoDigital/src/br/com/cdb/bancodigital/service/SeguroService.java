@@ -12,13 +12,13 @@ public class SeguroService {
 		this.seguroDAO = seguroDAO;
 	}
 	
-	public void seguroViagem(CartaoCredito cartao, Cliente cliente) {
+	public Seguro seguroViagem(CartaoCredito cartao, Cliente cliente) {
 		double valorApolice = 0.0;
 		String condicoes = ""; //bug de inicialização
 		
 		if(cartao == null || cliente == null) {
 			System.out.println("Cliente ou cartão não encontrado.");
-			return; //para o código no momento que é nulo
+			return null; 
 		}
 		
 		if(cliente instanceof ClienteComum || cliente instanceof ClienteSuper ) {
@@ -33,18 +33,20 @@ public class SeguroService {
 		
 		Seguro seguro = new Seguro(cartao, valorApolice, condicoes);
 		seguroDAO.addSeguro(seguro);
+		return seguro;
 	}
 	
-	public void seguroFraude(CartaoCredito cartao, Cliente cliente) {
+	public Seguro seguroFraude(CartaoCredito cartao, Cliente cliente) {
 		
 		if(cartao == null || cliente == null) {
 			System.out.println("Cliente ou cartão não encontrado.");
-			return;
+			return null;
 		}
 		double valorApolice = 5000.0;
 		String condicoes = "Cobertura contra fraudes acionada. Valor de até R$ " + valorApolice;
 		Seguro seguro = new Seguro(cartao, valorApolice, condicoes);
 		seguroDAO.addSeguro(seguro);
+		return seguro;
 	}
 	
 	public void adicionarSeguroAoCartao(CartaoCredito cartao, Cliente cliente) {
@@ -53,8 +55,17 @@ public class SeguroService {
 			System.out.println("Cliente ou cartão não encontrado.");
 			return;
 		}
+		Seguro seguroFraude = seguroFraude(cartao, cliente); //aqui eu chamo o método e atribuo o valor a varíavel
 		
-		seguroFraude(cartao, cliente); //é automático pra todos os cartões
+		if(seguroFraude != null) {
+			cartao.addSeguro(seguroFraude); //o parâmetro é o seguro, então eu adiciono o seguro fraude
+		}
+		
+		Seguro seguroViagem = seguroViagem(cartao, cliente);
+		
+		if(seguroFraude != null) {
+			cartao.addSeguro(seguroViagem);
+		}
 		
 		if(cliente instanceof ClientePremium) {
 			System.out.println("Oferecendo seguro viagem gratuito ao cliente Premium...");
@@ -62,7 +73,6 @@ public class SeguroService {
 		else {
 			System.out.println("Oferecendo seguro viagem ao cliente...");
 		}
-		seguroViagem(cartao, cliente);
 	}
 	
 	public void listarSeguros() {

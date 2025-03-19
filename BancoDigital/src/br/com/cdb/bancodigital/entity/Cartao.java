@@ -1,4 +1,5 @@
 package br.com.cdb.bancodigital.entity;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Cartao {

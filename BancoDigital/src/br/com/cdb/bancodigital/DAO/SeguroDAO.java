@@ -7,7 +7,7 @@ import java.util.List;
 public class SeguroDAO {
 
 	private ArrayList<Seguro> seguros = new ArrayList<>();
-	
+
 	public void addSeguro(Seguro seguro) {
 		seguros.add(seguro);
 		System.out.println("Seguro adicionado com sucesso: #" + seguro.getNumeroApolice());	
@@ -24,5 +24,9 @@ public class SeguroDAO {
 			}
 		}
 		return null;
+	}
+	
+	public ArrayList<Seguro> getSeguros() {
+		return seguros;
 	}
 }

@@ -1,12 +1,15 @@
 package br.com.cdb.bancodigital.entity;
 
+import br.com.cdb.bancodigital.entity.Cliente;
+import br.com.cdb.bancodigital.entity.ClienteComum;
+import br.com.cdb.bancodigital.entity.ClienteSuper;
+import br.com.cdb.bancodigital.entity.ClientePremium;
+
 
 public class ContaPoupanca extends Conta { // taxa de rendimento = 0,672%
 
-	private static final double taxa = 0.0672;
-
-	public ContaPoupanca(String titular) {
-		super(titular);
+	public ContaPoupanca(Cliente cliente) {
+		super(cliente);
 		tipoDeConta = "Conta Poupança";
 	}
 
@@ -59,6 +62,26 @@ public class ContaPoupanca extends Conta { // taxa de rendimento = 0,672%
 
 	@Override
 	public void taxa() {
+		
+		if(cliente == null) {
+			System.out.println("Cliente não encontrado");
+			return;
+		}
+		
+		double taxa = 0;
+		
+		if(cliente instanceof ClienteComum) {
+			taxa =	0.005; //5%
+		}
+		
+		else if(cliente instanceof ClienteSuper) {
+			taxa = 0.007;
+		}
+		
+		else if(cliente instanceof ClientePremium) {
+			taxa = 0.009;
+		}
+		
 		if (saldo <= 0) {
 			System.out.println("Não foi possível render ");
 		} else {

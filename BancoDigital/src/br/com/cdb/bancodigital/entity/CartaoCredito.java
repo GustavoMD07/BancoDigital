@@ -1,30 +1,50 @@
 package br.com.cdb.bancodigital.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import br.com.cdb.bancodigital.entity.Cliente;
+import br.com.cdb.bancodigital.entity.ClienteComum;
+import br.com.cdb.bancodigital.entity.ClienteSuper;
+import br.com.cdb.bancodigital.entity.ClientePremium;
+
 
 public class CartaoCredito extends Cartao {
-
+	
 	protected double limiteCredito;
 	protected double saldoDevedor;
 	protected double gastoMensal;
 	private LocalDate mesAtual;
+	protected List<Seguro> seguros = new ArrayList<>(); 
 
-	public CartaoCredito(String senha, String numCartao, double limiteCredito, Conta conta) {
+	public CartaoCredito(String senha, String numCartao, Conta conta, Cliente cliente) {
 		super(senha, numCartao, conta);
-		this.limiteCredito = limiteCredito;
 		this.mesAtual = LocalDate.now();
 		tipoDeCartao = "Cartão de crédito";
+		
+		if(cliente instanceof ClienteComum) {
+			this.limiteCredito = 1000;
+		}
+		else if(cliente instanceof ClienteSuper) {
+			this.limiteCredito = 5000;
+		}
+		else if(cliente instanceof ClientePremium) {
+			this.limiteCredito = 10000;
+		}
 	}
 
 	@Override
 	public void aplicarTaxas() {
-		if (saldoDevedor > 0) {
+		
+		double exceder = 0.8 * limiteCredito; //80% do limite gasto
+		
+		if (saldoDevedor > 0 && saldoDevedor >= exceder) {
 			double taxa = saldoDevedor * 0.05; //5% se a pessoa não pagou a taxa
 			saldoDevedor += taxa;
 			System.out.println("Taxa de: R$ " + taxa + " aplicada ao saldo devedor");
 			System.out.println("Dica de ouro: pague a fatura do seu cartão de crédito.");
 		} else {
-			System.out.println("Saldo devedor nulo, não há taxas para aplicar");
+			System.out.println("Condições para taxas não aplicáveis");
 		}
 	}
 
@@ -90,6 +110,12 @@ public class CartaoCredito extends Cartao {
 		System.out.println("Saldo devedor: R$ " + saldoDevedor + " || Limite do crédito: " + limiteCredito);
 		System.out.println("Você pode gastar mais: R$" + (limiteCredito - saldoDevedor));
 	}
+	
+	public void addSeguro(Seguro seguro) {
+		if(seguro != null && !seguros.contains(seguro)) {
+			seguros.add(seguro);
+		}
+	}
 
 	public void setLimiteCredito(double limiteCredito) {
 		this.limiteCredito = limiteCredito;
@@ -101,6 +127,10 @@ public class CartaoCredito extends Cartao {
 
 	public double getLimiteCredito() {
 		return limiteCredito;
+	}
+	
+	public List<Seguro> getSeguros() {
+		return seguros;
 	}
 
 }
