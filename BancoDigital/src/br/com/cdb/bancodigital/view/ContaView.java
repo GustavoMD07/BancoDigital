@@ -22,4 +22,12 @@ public class ContaView {
 	public void pegarMenuView(MenuView menuView) {
 		this.menuView = menuView;
 	}
+	
+	public void menuContaPadrao() {
+		System.out.println(" =====  MENU CONTA  ===== ");
+	}
+	
+	public void iniciarMenuConta() {
+		
+	}
 }

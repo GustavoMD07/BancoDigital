@@ -17,4 +17,15 @@ public class CartaoView {
 	public void pegarMenuView(MenuView menuView) {
 		this.menuView = menuView;
 	}
+	
+	public void menuCartaoPadrao() {
+		System.out.println(" =====  MENU CARTÃO  ===== ");
+		System.out.println("1 - ");
+	}
+	
+	public void iniciarMenuCartao() {
+		
+	}
+	
+	
 }

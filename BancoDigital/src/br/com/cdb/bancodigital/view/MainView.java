@@ -1,7 +1,5 @@
 package br.com.cdb.bancodigital.view; //fazendo o view pra ser o visual do código, pra poder testar
 
-import br.com.cdb.bancodigital.view.*; //importando tudo pra conseguir rodar o código de forma organizada
-
 public class MainView {
 	public static void main(String[] args)  {
 		

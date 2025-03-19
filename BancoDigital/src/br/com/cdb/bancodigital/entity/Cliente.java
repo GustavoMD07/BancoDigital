@@ -61,10 +61,6 @@ public abstract class Cliente {
 		}
 	}
 	
-	public void info() { //faz a mesma coisa que o toString, é só pra deixar mais informativo e ter um info
-		System.out.println("Nome: " + nome + "\nCPF: " + cpf + "\n Tipo de cliente: " + tipoDeCliente);
-	}
-	
 	@Override
 	public String toString() {
 		return "Nome: " + nome + "\nCPF: " + cpf + "\nTipo de cliente: " + tipoDeCliente;

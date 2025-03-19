@@ -20,4 +20,16 @@ public class SeguroView {
 	public void pegarMenuView(MenuView menuView) {
 		this.menuView = menuView; //to recebendo o objeto em vez de criar ele, li que é uma boa prática
 	}
+	
+	public void menuSeguroPadrao() {
+		System.out.println(" =====  MENU SEGUROS  ===== ");
+		System.out.println("1 - Aplicar seguro viagem");
+		System.out.println("2- Aplicar seguro fraude");
+		System.out.println("3 - Verificar seguros");
+		System.out.println("4 - Voltar ao menu principal");
+	}
+	
+	public void iniciarMenuSeguros() {
+		
+	}
 }
