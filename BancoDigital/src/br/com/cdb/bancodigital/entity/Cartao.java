@@ -6,13 +6,15 @@ public abstract class Cartao {
 
 	private static final AtomicInteger contador = new AtomicInteger(0);  // Contador para gerar IDs únicos
 	protected String tipoDeCartao;
+	
+
 	protected boolean status;
 	protected String senha;
 	protected String numCartao;
 	protected Conta conta;
 	protected String nome;
 
-	private final Integer id;  
+	private final int id;  
 
 	public Cartao(String senha, String numCartao, Conta conta) {
 		this.senha = senha;
@@ -71,11 +73,15 @@ public abstract class Cartao {
 		return numCartao;
 	}
 	
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 	
 	public String getNome() {
 		return nome;
+	}
+	
+	public String getTipoDeCartao() {
+		return tipoDeCartao;
 	}
 }

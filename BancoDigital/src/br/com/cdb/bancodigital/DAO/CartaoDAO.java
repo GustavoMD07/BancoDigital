@@ -7,7 +7,7 @@ import java.util.List;
 public class CartaoDAO {
 
 	private ArrayList<Cartao> cartoes = new ArrayList<>();
-	
+
 	public void addCartao(Cartao cartao) {
 		cartoes.add(cartao);
 		System.out.println("Cartão salvo com sucesso || Num: " + cartao.getNumCartao());
@@ -15,7 +15,7 @@ public class CartaoDAO {
 	
 	public Cartao buscarCartao(int id) {
 		for (Cartao c : cartoes) {
-			if(c.getId().equals (id)) {
+			if(c.getId() == id) {
 				return c;
 			}
 		}
@@ -29,6 +29,10 @@ public class CartaoDAO {
 	
 	public List<Cartao> listarCartoes() {    //aqui ele retorna uma cópia da lista, pra evitar alteração na lista
 		return new ArrayList<>(cartoes);   
+	}
+	
+	public ArrayList<Cartao> getCartoes() { //método gett pra colocar no view
+		return new ArrayList<> (cartoes);
 	}
 	
 }

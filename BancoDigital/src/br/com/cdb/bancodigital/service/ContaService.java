@@ -6,7 +6,6 @@ import br.com.cdb.bancodigital.entity.ContaCorrente;
 import br.com.cdb.bancodigital.entity.ContaPoupanca;
 import br.com.cdb.bancodigital.DAO.ClienteDAO;
 import br.com.cdb.bancodigital.DAO.ContaDAO;
-import java.util.List;
 import java.util.Scanner;
 
 public class ContaService {
@@ -24,9 +23,9 @@ public class ContaService {
 		System.out.println("Digite o id da conta que deseja buscar");
 		int id = input.nextInt();
 		
-		Conta conta = contaDAO.buscarContaPorId(idConta);
+		Conta conta = contaDAO.buscarContaPorId(id);
 		if (conta == null) {
-			System.out.println("Erro. Conta não encontrada para o ID: " + idConta);
+			System.out.println("Erro. Conta não encontrada para o ID: " + id);
 		}
 		return conta;
 	}
