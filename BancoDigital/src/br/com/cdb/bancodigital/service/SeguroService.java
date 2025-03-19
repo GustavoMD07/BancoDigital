@@ -11,7 +11,7 @@ public class SeguroService {
 	public SeguroService(SeguroDAO seguroDAO) {
 		this.seguroDAO = seguroDAO;
 	}
-	
+
 	public Seguro seguroViagem(CartaoCredito cartao, Cliente cliente) {
 		double valorApolice = 0.0;
 		String condicoes = ""; //bug de inicialização
