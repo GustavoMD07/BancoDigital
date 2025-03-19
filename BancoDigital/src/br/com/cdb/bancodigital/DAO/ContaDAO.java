@@ -13,6 +13,14 @@ public class ContaDAO {
 		this.clienteDAO = clienteDAO;
 	}
 
+	public void adicionarConta(Cliente cliente, Conta conta) {
+	    if (cliente != null) {
+	        cliente.getTodasAsContas().add(conta);
+	        System.out.println("Conta adicionada com sucesso para o cliente: " + cliente.getNome());
+	    } else {
+	        System.out.println("Erro: Cliente não encontrado.");
+	    }
+	}
 	
 	public List<Conta> buscarContasPorTitular(String titular) {
 		List<Conta> contasEncontradas = new ArrayList<>();

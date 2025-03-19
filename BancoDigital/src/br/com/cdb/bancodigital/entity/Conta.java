@@ -15,6 +15,7 @@ public abstract class Conta {
 	protected boolean transf;
 	protected String tipoDeConta;
 
+	
 	public Conta(Cliente cliente) {
 		this.cliente = cliente;
 		this.titular = cliente.getNome();
@@ -73,6 +74,11 @@ public abstract class Conta {
 	public double getSaldo() {
 		return saldo;
 	}
+	
+	public String getTipoDeConta() {
+		return tipoDeConta;
+	}
+
 
 	// o toString é muito útil sim.
 	public String toString() {
