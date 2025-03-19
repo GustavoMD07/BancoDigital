@@ -131,14 +131,14 @@ public class ClienteService {
 		return dataNascimento.format(dataFormato);
 	}
 
-	private boolean verificarFormatoCpf(String cpf) {
+	public boolean verificarFormatoCpf(String cpf) {
 		String regex = "^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}\\-[0-9]{2}$";
 		return cpf.matches(regex);
 		// aqui faz a verificação se o formato do cpf está correto, usando o regex pra definir um padrão :)
 		// depois ele retorna pra verificar se o cpf tá batendo com o que foi feito no regex
 	}
 
-	private boolean verificarCpf(String cpf) {
+	public boolean verificarCpf(String cpf) {
 		cpf = cpf.replaceAll("[^0-9", "");
 		// só pra ter certeza que qualquer número fora do formato seja removido
 

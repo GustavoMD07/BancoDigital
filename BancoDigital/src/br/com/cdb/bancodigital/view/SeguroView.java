@@ -34,9 +34,9 @@ public class SeguroView {
 	
 	public void menuSeguroPadrao() {
 		System.out.println(" =====  MENU SEGUROS  ===== ");
-		System.out.println("1 - Aplicar seguro viagem");
-		System.out.println("2- Aplicar seguro fraude");
-		System.out.println("3 - Verificar seguros");
+		System.out.println("1 - Aplicar e associar seguro viagem");
+		System.out.println("2 - Aplicar e associar seguro fraude");
+		System.out.println("3 - Listar seguros");
 		System.out.println("4 - Exibir detalhes");
 		System.out.println("5 - Voltar ao menu principal");
 	}
@@ -54,9 +54,20 @@ public class SeguroView {
 			
 			switch(oper) {
 			case 1:
-				Cliente cliente = clienteService.buscarClientePorCpf();
-				if(cliente != null) {
-				}
+				seguroService.seguroViagem();
+				break;
+			case 2:
+				seguroService.seguroFraude();
+				break;
+			case 3:
+				seguroService.listarSeguros();
+				break;
+			case 4:
+				seguroService.infoApolice();
+				break;
+			case 5:
+				menuView.iniciarMenu();
+				break;
 			}
 		}
 	}

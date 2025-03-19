@@ -8,11 +8,11 @@ public class Seguro {
 	private static final AtomicInteger contadorApolice = new AtomicInteger(1000);
 	private String numApolice;
 	private LocalDate dataContratacao;
-	private CartaoCredito cartaoCoberto;
+	private Cartao cartaoCoberto;
 	private double valorApolice;
 	private String condicoes;
 	
-	public Seguro(CartaoCredito cartaoCoberto, double valorApolice, String condicoes) {
+	public Seguro(Cartao cartaoCoberto, double valorApolice, String condicoes) {
 		this.numApolice = "APO-" + contadorApolice.incrementAndGet();
 		this.dataContratacao = LocalDate.now();
 		this.cartaoCoberto = cartaoCoberto;
@@ -53,7 +53,7 @@ public class Seguro {
 		return dataContratacao;
 	}
 
-	public CartaoCredito getCartaoCoberto() {
+	public Cartao getCartaoCoberto() {
 		return cartaoCoberto;
 	}
 

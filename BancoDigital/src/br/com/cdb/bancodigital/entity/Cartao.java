@@ -1,18 +1,20 @@
 package br.com.cdb.bancodigital.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import br.com.cdb.bancodigital.DAO.SeguroDAO;
 
 public abstract class Cartao {
 
 	private static final AtomicInteger contador = new AtomicInteger(0);  // Contador para gerar IDs únicos
 	protected String tipoDeCartao;
-	
-
 	protected boolean status;
 	protected String senha;
 	protected String numCartao;
 	protected Conta conta;
 	protected String nome;
+	protected List<Seguro> seguros = new ArrayList<>(); 
 
 	private final int id;  
 
@@ -83,5 +85,16 @@ public abstract class Cartao {
 	
 	public String getTipoDeCartao() {
 		return tipoDeCartao;
+	}
+	
+	public List<Seguro> getSeguros() {
+		return seguros;
+	}
+	
+	public void addSeguro(Seguro seguro) {
+		
+		if(seguro != null && !seguros.contains(seguro)) {
+			seguros.add(seguro);
+		}
 	}
 }

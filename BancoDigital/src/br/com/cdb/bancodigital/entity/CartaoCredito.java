@@ -15,7 +15,6 @@ public class CartaoCredito extends Cartao {
 	protected double saldoDevedor;
 	protected double gastoMensal;
 	private LocalDate mesAtual;
-	protected List<Seguro> seguros = new ArrayList<>(); 
 
 	public CartaoCredito(String senha, String numCartao, Conta conta, Cliente cliente) {
 		super(senha, numCartao, conta);
@@ -110,12 +109,6 @@ public class CartaoCredito extends Cartao {
 		System.out.println("Saldo devedor: R$ " + saldoDevedor + " || Limite do crédito: " + limiteCredito);
 		System.out.println("Você pode gastar mais: R$" + (limiteCredito - saldoDevedor));
 	}
-	
-	public void addSeguro(Seguro seguro) {
-		if(seguro != null && !seguros.contains(seguro)) {
-			seguros.add(seguro);
-		}
-	}
 
 	public void setLimiteCredito(double limiteCredito) {
 		this.limiteCredito = limiteCredito;
@@ -129,8 +122,4 @@ public class CartaoCredito extends Cartao {
 		return limiteCredito;
 	}
 	
-	public List<Seguro> getSeguros() {
-		return seguros;
-	}
-
 }
