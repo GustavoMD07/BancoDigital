@@ -7,7 +7,6 @@ import br.com.cdb.bancodigital.entity.ClientePremium;
 import br.com.cdb.bancodigital.entity.ClienteSuper;
 
 import java.util.List;
-import java.util.regex.Pattern;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -92,7 +91,7 @@ public class ClienteService {
 		Cliente cliente = selecionarTipoDeCliente(nome, cpf, dataNascimento);
 		
 		clienteDAO.addCliente(cliente);
-		System.out.println("\nCLIENTE\n-------------\n" + cliente + " \nCliente adicionado com sucesso");
+		System.out.println("\nCLIENTE\n-------------\n" + cliente + " \nCliente adicionado com sucesso\n");
 	}
 
 	public Cliente buscarClientePorCpf() {
@@ -119,7 +118,7 @@ public class ClienteService {
 			//System.out.println("Buscando CPF: " + cpf);  // CPF que você está buscando
 		    //System.out.println("CPF do cliente: " + cliente.getCpf());  // CPF do cliente na lista
 			if (cliente.getCpf().equals(cpf)) {
-				System.out.println("------Clientes----------\n" + cliente + "\n---------------------");
+				System.out.println("------Cliente----------\n" + cliente + "\n---------------------");
 				return cliente;
 			}
 		}

@@ -33,10 +33,9 @@ public abstract class Cliente {
 	}
 	
 	public List<Conta> getTodasAsContas() {
-		List<Conta> todas = new ArrayList<>();
-		todas.addAll(contaCorrente);
-		todas.addAll(contaPoupanca);
-		return todas;
+		todasAsContas.addAll(contaCorrente);
+		todasAsContas.addAll(contaPoupanca);
+		return todasAsContas;
 	}
 	
 	public void adicionarConta(Conta conta) {            //usando o instaceof pra identificar se é uma conta corrente ou 

@@ -1,4 +1,4 @@
-package br.com.cdb.bancodigital.view; //fazendo o view pra ser o visual do código, pra poder testar
+package br.com.cdb.bancodigital.view;  
 
 import br.com.cdb.bancodigital.DAO.CartaoDAO;
 import br.com.cdb.bancodigital.DAO.ClienteDAO;
@@ -16,9 +16,7 @@ public class MainView {
 		ContaDAO contaDAO = new ContaDAO(clienteDAO);
 		CartaoDAO cartaoDAO = new CartaoDAO();
 		SeguroDAO seguroDAO = new SeguroDAO();
-		
-
-		// Cria os serviços com as dependências injetadas
+	
 		ClienteService clienteService = new ClienteService(clienteDAO);
 		ContaService contaService = new ContaService(contaDAO, clienteDAO);
 		CartaoService cartaoService = new CartaoService(cartaoDAO, contaService, clienteDAO);

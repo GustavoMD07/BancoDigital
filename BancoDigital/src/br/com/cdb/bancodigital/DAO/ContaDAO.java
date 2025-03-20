@@ -19,9 +19,12 @@ public class ContaDAO {
 	        if (cliente.getTodasAsContas() == null) {
 	            cliente.setTodasAsContas(new ArrayList<>()); // Inicializa a lista de contas se for nula
 	        }
+	        
+//	        if(conta instanceof ContaCorrente) {
+//	        	
+//	        }
 
 	        cliente.getTodasAsContas().add(conta);
-	        System.out.println("Conta adicionada com sucesso para o cliente: " + cliente.getNome());
 	    } else {
 	        System.out.println("Erro: Cliente não encontrado.");
 	    }
@@ -64,7 +67,8 @@ public class ContaDAO {
 				System.out.println("Cliente ou lista de clientes está nula");
 			}
 		}
-
 	}
+	
+	
 
 }

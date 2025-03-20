@@ -51,10 +51,9 @@ public class CartaoService {
 		}
 
 		System.out.println("Digite o ID da conta para associar ao cartão: ");
-		int idConta = input.nextInt();
 		input.nextLine();
 
-		Conta conta = contaService.buscarContaPorId(idConta);
+		Conta conta = contaService.buscarContaPorId();
 		if (conta == null) {
 			System.out.println("Conta vazia");
 			return;
