@@ -16,15 +16,17 @@ import java.util.Scanner;
 
 public class CartaoService {
 
-	CartaoDAO cartaoDAO = new CartaoDAO();
-	ClienteDAO clienteDAO = new ClienteDAO();
-	ContaDAO contaDAO = new ContaDAO(clienteDAO);
-	ContaService contaService = new ContaService(contaDAO);
+	CartaoDAO cartaoDAO;
+	ClienteDAO clienteDAO;
+	ContaDAO contaDAO;
+	ContaService contaService;
 	Scanner input;
 
-	public CartaoService(CartaoDAO cartaoDAO) {
+	public CartaoService(CartaoDAO cartaoDAO, ContaService contaService, ClienteDAO clienteDAO) {
 		input = new Scanner(System.in);
 		this.cartaoDAO = cartaoDAO;
+		this.contaService = contaService;
+        this.clienteDAO = clienteDAO;
 	}
 	
 	private boolean verificarSenha(Cartao cartao, String senha) {
@@ -72,7 +74,7 @@ public class CartaoService {
 		System.out.println("1 - Cartão de Crédito");
 		System.out.println("2 - Cartão de Débito");
 		int opcao = input.nextInt();
-		input.nextLine(); // Consumir quebra de linha
+		input.nextLine(); //quebra de linha pra não bugar ou pelo menos tentar
 
 		Cartao novoCartao;
 

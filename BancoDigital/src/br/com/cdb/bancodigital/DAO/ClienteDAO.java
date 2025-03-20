@@ -17,8 +17,8 @@ public class ClienteDAO {
 			return; //verificando se já tem um cliente com o cpf, se sim, ele sai desse código
 		}
 		
-		System.out.println(cliente + "\n Cliente adicionado\n");
 		listaDeClientes.add(cliente);
+//		System.out.println("Cliente adicionado na lista: " + listaDeClientes);
 	}
 	
 	public void removerCliente(Cliente cliente) {
@@ -50,12 +50,7 @@ public class ClienteDAO {
 				return c;
 			}
 		}
-		System.out.println("Cliente não encontrado");
 		return null;
-	}
-	
-	public List<Cliente> listarClientes() {
-		return new ArrayList<>(listaDeClientes); //cópia da lista pra evitar modificações ou erros
 	}
 	
 	public ArrayList<Cliente> getListaDeClientes() {

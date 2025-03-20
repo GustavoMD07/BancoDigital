@@ -27,10 +27,6 @@ public class CartaoDAO {
 		System.out.println("Cartão removido com sucesso!.");
 	}
 	
-	public List<Cartao> listarCartoes() {    //aqui ele retorna uma cópia da lista, pra evitar alteração na lista
-		return new ArrayList<>(cartoes);   
-	}
-	
 	public ArrayList<Cartao> getCartoes() { //método gett pra colocar no view
 		return new ArrayList<> (cartoes);
 	}

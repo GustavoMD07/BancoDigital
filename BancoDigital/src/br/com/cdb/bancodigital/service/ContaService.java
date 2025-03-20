@@ -11,11 +11,14 @@ import java.util.Scanner;
 public class ContaService {
 
 	private ContaDAO contaDAO;
-	private ClienteDAO clienteDAO = new ClienteDAO();
+	private ClienteDAO clienteDAO; 
+	ClienteService clienteService;
 	Scanner input;
 
-	public ContaService(ContaDAO contaDAO) {
+	public ContaService(ContaDAO contaDAO, ClienteDAO clienteDAO) {
 		this.contaDAO = contaDAO;
+		this.clienteDAO = clienteDAO;
+		this.clienteService = new ClienteService(clienteDAO);
 		input = new Scanner(System.in);
 	}
 	
@@ -31,12 +34,11 @@ public class ContaService {
 	}
 	
 	public void adicionarConta() {
-        System.out.println("Digite o CPF do cliente para criar a conta:");
-        String cpf = input.nextLine();
-        
-        Cliente cliente = clienteDAO.buscarCliente(cpf);
+       
+        Cliente cliente = clienteService.buscarClientePorCpf();
+        System.out.println("Cliente retornado: " + cliente); 
         if (cliente == null) {
-            System.out.println("Cliente não encontrado.");
+            System.out.println("Cliente não encontrado");
             return;
         }
 

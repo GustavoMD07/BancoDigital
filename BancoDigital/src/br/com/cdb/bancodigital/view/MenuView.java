@@ -4,11 +4,12 @@ import java.util.Scanner;
 
 public class MenuView {
 	Scanner input;
+	
+	private ClienteView clienteView;
+    private ContaView contaView;
+    private CartaoView cartaoView;
+    private SeguroView seguroView;
 
-	ClienteView clienteView = new ClienteView();
-	ContaView contaView = new ContaView();
-	CartaoView cartaoView = new CartaoView();
-	SeguroView seguroView = new SeguroView();
 
 	public MenuView(ClienteView clienteView, ContaView contaView, CartaoView cartaoView, SeguroView seguroView) {
 		input = new Scanner(System.in); // boa prática criar o scanner dentro do método construtor
@@ -28,7 +29,7 @@ public class MenuView {
 			System.out.println("2 - Acessar Menu Conta\n");
 			System.out.println("3 - Acessar Menu Cartão\n");
 			System.out.println("4 - Acessar Menu Seguros\n");
-			System.out.println("5 - Sair do Sistema");
+			System.out.println("5 - Sair do Sistema\n");
 
 			System.out.println("Escolha uma operação: ");
 			int oper = input.nextInt();
@@ -50,7 +51,10 @@ public class MenuView {
 				sairSistema();
 				continuar = false;
 				break;
-
+			default:
+				System.out.println("Operação inválida!");
+				sairSistema();
+				continuar = false;
 			}
 		}
 	}

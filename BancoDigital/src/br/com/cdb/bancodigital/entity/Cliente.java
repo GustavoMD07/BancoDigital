@@ -66,11 +66,12 @@ public abstract class Cliente {
 		return "Nome: " + nome + "\nCPF: " + cpf + "\nTipo de cliente: " + tipoDeCliente;
 	}
 
-	
-	
-	
 	//getters and setters, não precisa mexer daqui pra baixo
 	
+	public void setTodasAsContas(List<Conta> todasAsContas) {
+		this.todasAsContas = todasAsContas;
+	}
+
 	public String getTipoDeCliente() {
 		return tipoDeCliente;
 	}

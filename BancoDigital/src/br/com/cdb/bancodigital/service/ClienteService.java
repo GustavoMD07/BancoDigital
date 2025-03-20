@@ -10,15 +10,13 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class ClienteService {
 
 	private ClienteDAO clienteDAO;
 	Scanner input;
-	
-	private static final Pattern nomePadrao = Pattern.compile("^[//p{L} ]+$");
-	//aqui eu to definindo o padrão, pode ser letra maíscula, minúscula, acento, etc
 	
 	private static final DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	//padronizando a data pra ser do formato DD/MM/AAAA
@@ -45,25 +43,33 @@ public class ClienteService {
 			return;
 		}
 		
-		if(!nomePadrao.matcher(nome).matches()) {
-			System.out.println("O nome deve conter apenas letras e espaços");
-			//aqui ele verifica com o matcher se tá no formato regex e matches pra retornar se tá tudo certo
-		}
-		
 		System.out.println("Digite sua data de nascimento (dd/mm/aaaa)");
-		LocalDate dataNascimento = LocalDate.parse(input.nextLine());
+		String dataDigitada = input.nextLine();
 		
-		LocalDate idadeMinima = LocalDate.now().minusYears(18); 
-		//subtrai 18 anos da data atual, e guarda que o mínimo que o usuário precisa colocar é 18/03/2007
-		
-		if(dataNascimento == null) {
+		if(dataDigitada == null) {
 			System.out.println("A data de nascimento não pode ser nula");
-		}
-		
-		if(dataNascimento.isAfter(idadeMinima)) {
-			System.out.println("É necessário ter 18 anos para ser cliente");
 			return;
 		}
+		
+		try {
+			LocalDate dataNascimento = LocalDate.parse(dataDigitada, dataFormato);
+			
+			LocalDate idadeMinima = LocalDate.now().minusYears(18); 
+			//subtrai 18 anos da data atual, e guarda que o mínimo que o usuário precisa colocar é 18/03/2007
+		
+			if(dataNascimento.isAfter(idadeMinima)) {
+				System.out.println("É necessário ter 18 anos para ser cliente");
+				return;
+			} else {
+				System.out.println("Data correta");
+			}
+		}
+		catch (DateTimeParseException e) {
+            System.out.println("Formato de data inválido! Use o formato dd/MM/yyyy.");
+        } 
+		
+		LocalDate dataNascimento = LocalDate.parse(dataDigitada, dataFormato);
+		
 
 		System.out.println("Digite seu cpf: ");
 		String cpf = input.next().trim();
@@ -86,12 +92,14 @@ public class ClienteService {
 		Cliente cliente = selecionarTipoDeCliente(nome, cpf, dataNascimento);
 		
 		clienteDAO.addCliente(cliente);
-		System.out.println("Cliente: " + cliente + " adicionado com sucesso");
+		System.out.println("\nCLIENTE\n-------------\n" + cliente + " \nCliente adicionado com sucesso");
 	}
 
 	public Cliente buscarClientePorCpf() {
+		
 		System.out.println("Digite o CPF do cliente que deseja buscar: ");
-	    String cpf = input.next().trim();
+	    String cpf = input.nextLine().trim();
+	    
 	    
 	    if (!verificarFormatoCpf(cpf)) {
 	        System.out.println("CPF com formato inválido.");
@@ -104,14 +112,18 @@ public class ClienteService {
 	    }
 
 		
-		List<Cliente> clientes = clienteDAO.getListaDeClientes();
+		List<Cliente> clientes = clienteDAO.getListaDeClientes(); //a lista não tá vazia
+		//System.out.println("Clientes cadastrados: " + clientes); //lembrar de ver o erro da Conta
 
 		for (Cliente cliente : clientes) {
+			//System.out.println("Buscando CPF: " + cpf);  // CPF que você está buscando
+		    //System.out.println("CPF do cliente: " + cliente.getCpf());  // CPF do cliente na lista
 			if (cliente.getCpf().equals(cpf)) {
+				System.out.println("------Clientes----------\n" + cliente + "\n---------------------");
 				return cliente;
 			}
 		}
-		System.out.println("Cliente não encontrado");
+		System.out.println("Cliente não encontrado para a busca do CPF");
 		return null;
 	}
 
@@ -123,7 +135,9 @@ public class ClienteService {
 			return;
 		}
 		for (Cliente cliente : clientes) {
+			System.out.println("\n");
 			System.out.println(cliente);
+			
 		}
 	}
 	
@@ -139,34 +153,18 @@ public class ClienteService {
 	}
 
 	public boolean verificarCpf(String cpf) {
-		cpf = cpf.replaceAll("[^0-9", "");
+		cpf = cpf.replaceAll("[^0-9]",  "");
 		// só pra ter certeza que qualquer número fora do formato seja removido
 
 		if (cpf.length() != 11) {
 			return false;
 		}
-
-		//verificação dos dois últimos digitos (digitos verificadores)
-		int soma = 0;
-		for (int i = 0; i < 9; i++) {
-			soma += (10 - i) * (cpf.charAt(i) - '0'); // por algum motivo ele tá dando erro com ""
-		}
-		int primeiroDigito = (soma % 11 < 2) ? 0 : 11 - (soma % 11);
-		if (cpf.charAt(9) - '0' != primeiroDigito) {
-			return false;
-		}
-
-		soma = 0;
-		for (int i = 0; i < 10; i++) {
-			soma += (11 - i) * (cpf.charAt(i) - '0');
-		}
-		int segundoDigito = (soma % 11 < 2) ? 0 : 11 - (soma % 11);
-		return cpf.charAt(10) - '0' == segundoDigito;
+		return true;
 	}
 	
 	private Cliente selecionarTipoDeCliente(String nome, String cpf, LocalDate dataNascimento) {
 		System.out.println("Selecione o tipo de cliente: ");
-		System.out.println("1 - Comum\n 2 - Super\n 3 - Premium ");
+		System.out.println("1 - Comum\n2 - Super\n3 - Premium ");
 		int tipo = input.nextInt();
 		input.nextLine();
 		 switch (tipo) {
@@ -183,11 +181,9 @@ public class ClienteService {
 	}
 	
 	public void infoCliente() {
-	    System.out.println("Digite o CPF do cliente para exibir informações: ");
-	    String cpf = input.next().trim();
-
+		
 	    Cliente cliente = buscarClientePorCpf();
-
+	    
 	    if (cliente == null) {
 	        System.out.println("Cliente não encontrado.");
 	        return;

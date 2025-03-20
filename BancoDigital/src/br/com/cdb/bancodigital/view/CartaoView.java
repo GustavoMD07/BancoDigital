@@ -11,10 +11,9 @@ public class CartaoView {
 	private CartaoDAO cartaoDAO;
 	Scanner input;
 
-	public CartaoView() {
+	public CartaoView(CartaoService cartaoService) {
 		this.input = new Scanner(System.in);
-		CartaoDAO cartaoDAO = new CartaoDAO();
-		this.cartaoService = new CartaoService(cartaoDAO);
+		this.cartaoService = cartaoService;
 	}
 
 	public void pegarMenuView(MenuView menuView) {
@@ -73,6 +72,8 @@ public class CartaoView {
 			case 9:
 				menuView.iniciarMenu();
 				break;
+			default:
+				System.out.println("Operação inválida");
 			}
 		}
 	}

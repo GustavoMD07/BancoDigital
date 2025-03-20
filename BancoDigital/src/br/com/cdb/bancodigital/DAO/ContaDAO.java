@@ -15,6 +15,11 @@ public class ContaDAO {
 
 	public void adicionarConta(Cliente cliente, Conta conta) {
 	    if (cliente != null) {
+	        // Verifica se a lista de contas do cliente já foi inicializada
+	        if (cliente.getTodasAsContas() == null) {
+	            cliente.setTodasAsContas(new ArrayList<>()); // Inicializa a lista de contas se for nula
+	        }
+
 	        cliente.getTodasAsContas().add(conta);
 	        System.out.println("Conta adicionada com sucesso para o cliente: " + cliente.getNome());
 	    } else {

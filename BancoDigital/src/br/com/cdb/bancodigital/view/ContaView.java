@@ -12,11 +12,9 @@ public class ContaView {
 	private ContaService contaService;
 	Scanner input;
 
-	public ContaView() {
+	public ContaView(ContaService contaService) {
 		this.input = new Scanner(System.in);
-		ClienteDAO clienteDAO = new ClienteDAO();
-		ContaDAO contaDAO = new ContaDAO(clienteDAO);
-		this.contaService = new ContaService(contaDAO); // complicação
+		this.contaService = contaService;
 	}
 
 	public void pegarMenuView(MenuView menuView) {
@@ -65,7 +63,6 @@ public class ContaView {
 				break;
 			default:
 				System.out.println("Operação inválida!");
-				break;
 			}
 		}
 	}

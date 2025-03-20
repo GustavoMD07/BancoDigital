@@ -13,25 +13,17 @@ public class SeguroView {
 
 	private MenuView menuView;
 	private SeguroService seguroService;
-	private ClienteView clienteView;
-	private ClienteService clienteService;
-	private ClienteDAO clienteDAO;
 	Scanner input;
-	
-	
-	public SeguroView() {
+
+	public SeguroView(SeguroService seguroService) {
 		this.input = new Scanner(System.in);
-		SeguroDAO seguroDAO = new SeguroDAO();
-		this.seguroService = new SeguroService(seguroDAO);
-		clienteView = new ClienteView();
-		clienteDAO = new ClienteDAO();
-		clienteService = new ClienteService(clienteDAO);
+		this.seguroService = seguroService;
 	}
-	
+
 	public void pegarMenuView(MenuView menuView) {
-		this.menuView = menuView; //to recebendo o objeto em vez de criar ele, li que é uma boa prática
+		this.menuView = menuView; // to recebendo o objeto em vez de criar ele, li que é uma boa prática
 	}
-	
+
 	public void menuSeguroPadrao() {
 		System.out.println(" =====  MENU SEGUROS  ===== ");
 		System.out.println("1 - Aplicar e associar seguro viagem");
@@ -40,19 +32,19 @@ public class SeguroView {
 		System.out.println("4 - Exibir detalhes");
 		System.out.println("5 - Voltar ao menu principal");
 	}
-	
+
 	public void iniciarMenuSeguros() {
 		boolean continuar = true;
-		
-		while(continuar) {
+
+		while (continuar) {
 			menuView.limparConsole();
 			menuSeguroPadrao();
 			System.out.println("Selecione uma operação: ");
 			int oper = input.nextInt();
 			System.out.println();
 			input.nextLine();
-			
-			switch(oper) {
+
+			switch (oper) {
 			case 1:
 				seguroService.seguroViagem();
 				break;
@@ -68,6 +60,8 @@ public class SeguroView {
 			case 5:
 				menuView.iniciarMenu();
 				break;
+			default:
+				System.out.println("Operação inválida.");
 			}
 		}
 	}

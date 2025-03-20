@@ -9,14 +9,16 @@ import java.util.Scanner;
 public class SeguroService {
 
 	private SeguroDAO seguroDAO;
-	private CartaoDAO cartaoDAO = new CartaoDAO();
-	private CartaoService cartaoService = new CartaoService(cartaoDAO);
-	private ClienteDAO clienteDAO = new ClienteDAO();
-	private ClienteService clienteService = new ClienteService(clienteDAO);
+	private CartaoDAO cartaoDAO;
+	private CartaoService cartaoService;
+	private ClienteDAO clienteDAO;
+	private ClienteService clienteService;
 	Scanner input;
 
-	public SeguroService(SeguroDAO seguroDAO) {
+	public SeguroService(SeguroDAO seguroDAO, CartaoService cartaoService, ClienteService clienteService) {
 		this.seguroDAO = seguroDAO;
+		this.cartaoService = cartaoService;
+        this.clienteService = clienteService;
 		input = new Scanner(System.in);
 	}
 
