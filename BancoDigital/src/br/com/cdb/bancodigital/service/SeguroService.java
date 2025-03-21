@@ -25,7 +25,6 @@ public class SeguroService {
 	public Seguro seguroViagem() {
 
 		System.out.println("Digite o ID do cartão que deseja aplicar o seguro viagem");
-		int id = input.nextInt();
 		Cartao cartao = cartaoService.buscarCartao();
 
 		if (cartao instanceof CartaoDebito) {
@@ -79,7 +78,6 @@ public class SeguroService {
 	public Seguro seguroFraude() {
 
 		System.out.println("Digite o ID do cartão que deseja aplicar o seguro fraude");
-		int id = input.nextInt();
 		Cartao cartao = cartaoService.buscarCartao();
 
 		if (cartao instanceof CartaoDebito) {
@@ -132,8 +130,7 @@ public class SeguroService {
 	}
 	
 	public void infoApolice() {
-		System.out.println("Digite o número da ápolice para verificar as informações ");
-		String numApolice = input.nextLine();
+
 		Seguro seguro = buscarSeguroApolice();
 		
 		if(seguro == null) {

@@ -1,10 +1,5 @@
 package br.com.cdb.bancodigital.entity;
 
-import br.com.cdb.bancodigital.entity.Cliente;
-import br.com.cdb.bancodigital.entity.ClienteComum;
-import br.com.cdb.bancodigital.entity.ClientePremium;
-import br.com.cdb.bancodigital.entity.ClienteSuper;
-
 public class ContaCorrente extends Conta {
 
 	public ContaCorrente(Cliente cliente) {
@@ -31,17 +26,14 @@ public class ContaCorrente extends Conta {
 	}
 
 	@Override
-	public boolean saque(double valor) {
+	public void saque(double valor) {
 		
-		if (valor > saldo && valor < 0) {
+		if (valor > saldo || valor < 0) {
 			System.out.println("Não foi possível realizar a operação. Saldo bancário insuficiente");
-			transf = false;
-			return false;
-		} else {
+		} 
+		else {
 			retirarSaldo(valor);
 			System.out.println("Seu saque de R$ " + valor + " Foi concluído com êxito");
-			transf = true;
-			return true;
 		}
 
 	}
@@ -54,7 +46,7 @@ public class ContaCorrente extends Conta {
 			saldo -= valor;
 			return true;
 		} else {
-			System.out.println("Não foi possível realizar a operação");
+			System.out.println("Não foi possível realizar a operação, saldo insuficiente da conta de origem");
 			return false;
 		}
 	}

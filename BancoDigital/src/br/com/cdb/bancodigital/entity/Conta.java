@@ -26,7 +26,7 @@ public abstract class Conta {
 
 	public abstract void depositar(double valor);
 
-	public abstract boolean saque(double valor);
+	public abstract void saque(double valor);
 
 	public abstract boolean transferencia(double valor, Conta conta);
 
@@ -73,6 +73,10 @@ public abstract class Conta {
 
 	public double getSaldo() {
 		return saldo;
+	}
+	
+	public Cliente getCliente() { //eu to retornando o cliente que já tá referenciado la em cima na Conta
+		return this.cliente;
 	}
 	
 	public String getTipoDeConta() {

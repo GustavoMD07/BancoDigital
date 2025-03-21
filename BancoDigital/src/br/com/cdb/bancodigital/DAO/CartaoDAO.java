@@ -2,7 +2,6 @@ package br.com.cdb.bancodigital.DAO;
 
 import br.com.cdb.bancodigital.entity.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CartaoDAO {
 

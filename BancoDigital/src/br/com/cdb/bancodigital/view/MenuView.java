@@ -64,6 +64,6 @@ public class MenuView {
 	}
 
 	protected void limparConsole() { // aqui ele ""limpa"" o console pulando 50 linhas
-		System.out.println("\n".repeat(50));
+		System.out.println("\n".repeat(3));
 	}
 }

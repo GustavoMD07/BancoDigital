@@ -98,6 +98,7 @@ public class ClienteService {
 		
 		System.out.println("Digite o CPF do cliente que deseja buscar: ");
 	    String cpf = input.nextLine().trim();
+	    System.out.println("\n");
 	    
 	    
 	    if (!verificarFormatoCpf(cpf)) {

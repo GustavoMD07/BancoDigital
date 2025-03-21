@@ -1,23 +1,17 @@
 package br.com.cdb.bancodigital.entity;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import br.com.cdb.bancodigital.entity.Cliente;
-import br.com.cdb.bancodigital.entity.ClienteComum;
-import br.com.cdb.bancodigital.entity.ClienteSuper;
-import br.com.cdb.bancodigital.entity.ClientePremium;
-
 
 public class CartaoCredito extends Cartao {
 	
 	protected double limiteCredito;
 	protected double saldoDevedor;
 	protected double gastoMensal;
+	private Cartao cartao;
 	private LocalDate mesAtual;
 
 	public CartaoCredito(String senha, String numCartao, Conta conta, Cliente cliente) {
-		super(senha, numCartao, conta);
+		super(senha, numCartao, conta, cliente);
 		this.mesAtual = LocalDate.now();
 		tipoDeCartao = "Cartão de crédito";
 		
@@ -95,6 +89,18 @@ public class CartaoCredito extends Cartao {
 
 	}
 
+	public void InfoCredito() {
+		System.out.println("INFORMAÇÕES CARTÃO DE CRÉDITO: \n");
+		System.out.println("Nome: " + cartao.getNome());
+		System.out.println("ID: " + cartao.getId());
+		System.out.println("Numéro do cartão: " + cartao.getNumCartao());
+		System.out.println("Senha do cartão: " + cartao.getSenha());
+		System.out.println("Tipo de cartão: " + cartao.getTipoDeCartao());
+		System.out.println("Tipo de conta do titular: " + conta.getTipoDeConta());
+		System.out.println("Tipo de cliente: " + cliente.getTipoDeCliente());
+		System.out.println("Limite do cartão de crédito: R$ " + getLimiteCredito());
+		System.out.println("Saldo devedor: R$ " + getSaldoDevedor());
+	}
 	private void verificarMes() {
 
 		LocalDate hoje = LocalDate.now();

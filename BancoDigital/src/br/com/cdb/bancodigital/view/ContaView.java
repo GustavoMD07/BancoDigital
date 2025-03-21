@@ -1,9 +1,6 @@
 package br.com.cdb.bancodigital.view;
 
 import java.util.Scanner;
-
-import br.com.cdb.bancodigital.DAO.ClienteDAO;
-import br.com.cdb.bancodigital.DAO.ContaDAO;
 import br.com.cdb.bancodigital.service.ContaService;
 
 public class ContaView {

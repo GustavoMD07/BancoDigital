@@ -11,7 +11,7 @@ import br.com.cdb.bancodigital.service.SeguroService;
 
 public class MainView {
 	public static void main(String[] args) {
-
+		
 		ClienteDAO clienteDAO = new ClienteDAO();
 		ContaDAO contaDAO = new ContaDAO(clienteDAO);
 		CartaoDAO cartaoDAO = new CartaoDAO();

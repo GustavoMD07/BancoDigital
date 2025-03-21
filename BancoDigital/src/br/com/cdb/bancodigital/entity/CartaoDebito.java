@@ -10,9 +10,10 @@ public class CartaoDebito extends Cartao {
 	
 	protected double limiteDiario;
 	protected double limiteDiarioInicial;
+	private Cartao cartao;
 	
-	public CartaoDebito(String senha, String numCartao, double limiteDiario, Conta conta) {
-		super(senha, numCartao, conta);
+	public CartaoDebito(String senha, String numCartao, double limiteDiario, Conta conta, Cliente cliente) {
+		super(senha, numCartao, conta, cliente);
 		this.limiteDiario = limiteDiario;
 		this.limiteDiarioInicial = limiteDiario;
 		tipoDeCartao = "Cartão de débito";
@@ -95,7 +96,7 @@ public class CartaoDebito extends Cartao {
 		System.out.println("Limite diário disponível: R$ " + limiteDiario);
 	}
 	
-	protected double getLimiteDiario() {
+	public double getLimiteDiario() {
 		return limiteDiario;
 	}
 	
@@ -109,6 +110,18 @@ public class CartaoDebito extends Cartao {
 
 	protected void setLimiteDiario(double limiteDiario) {
 		this.limiteDiario = limiteDiario;
+	}
+	
+	public void infoDebito() {
+		System.out.println("INFORMAÇÕES CARTÃO DE CRÉDITO: \n");
+		System.out.println("Nome: " + cartao.getNome());
+		System.out.println("ID: " + cartao.getId());
+		System.out.println("Numéro do cartão: " + cartao.getNumCartao());
+		System.out.println("Senha do cartão: " + cartao.getSenha());
+		System.out.println("Tipo de cartão: " + cartao.getTipoDeCartao());
+		System.out.println("Tipo de conta do titular: " + conta.getTipoDeConta());
+		System.out.println("Tipo de cliente: " + cliente.getTipoDeCliente());
+		System.out.println("Limite diário do Cartão: R$ " + getLimiteDiario());
 	}
 
 

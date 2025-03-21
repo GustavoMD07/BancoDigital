@@ -6,8 +6,6 @@ import br.com.cdb.bancodigital.entity.ContaCorrente;
 import br.com.cdb.bancodigital.entity.ContaPoupanca;
 import br.com.cdb.bancodigital.DAO.ClienteDAO;
 import br.com.cdb.bancodigital.DAO.ContaDAO;
-
-import java.util.List;
 import java.util.Scanner;
 
 public class ContaService {
@@ -28,14 +26,14 @@ public class ContaService {
 	public Conta buscarContaPorId() {
 		int id = input.nextInt();
 
-		for (Cliente cliente : clienteDAO.getListaDeClientes()) {
-			for (Conta conta : cliente.getTodasAsContas()) {
+//		for (Cliente cliente : clienteDAO.getListaDeClientes()) {
+			for (Conta conta : contaDAO.getTodasAsContas()) {
 				if (conta.getID() == id) {
-					System.out.println("------Conta----------\n" + conta + "\n---------------------");
+//					System.out.println("------Conta----------\n" + conta + "\n---------------------");
 					return conta;
 				}
 			}
-		}
+		
 		System.out.println("Erro. Conta não encontrada para o ID: " + id);
 		return null;
 	}
@@ -66,7 +64,6 @@ public class ContaService {
 		}
 
 		contaDAO.adicionarConta(cliente, novaConta);
-		System.out.println("Conta criada com sucesso! Cliente: " + novaConta.getTitular());
 		System.out.println("Atenção!. Guarde seu ID pois ele rege todas as funcionalidades");
 		System.out.println("ID: " + novaConta.getID());
 	}
@@ -121,7 +118,7 @@ public class ContaService {
 
 	public void sacar() {
 
-		System.out.println("Digite o valor da transferência");
+		System.out.println("Digite o valor do saque");
 		double valor = input.nextDouble();
 
 		System.out.println("Digite o ID da conta que deseja sacar");
@@ -143,11 +140,14 @@ public class ContaService {
 			System.out.println("Conta não encontrada");
 			return;
 		}
+		
+		Cliente cliente = conta.getCliente(); //to fazendo com que cliente receba o valor de cliente
 
-		System.out.println("\n INFORMAÇÕES CONTA");
+		System.out.println("\n--------- INFORMAÇÕES GERAIS CONTA ------------\n");
 		System.out.println("Titular: " + conta.getTitular());
-		System.out.println("Saldo: " + conta.getSaldo());
+		System.out.println("Saldo: R$" + conta.getSaldo());
 		System.out.println("Tipo de conta: " + conta.getTipoDeConta());
-		System.out.println("ID: " + conta.getID());
+		System.out.println("Tipo de cliente: " + cliente.getTipoDeCliente());
+		System.out.println("ID da conta: " + conta.getID() + "\n--------------");
 	}
 }

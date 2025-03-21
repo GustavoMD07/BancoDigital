@@ -1,7 +1,6 @@
 package br.com.cdb.bancodigital.DAO;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.cdb.bancodigital.entity.*;
 
@@ -26,23 +25,6 @@ public class ClienteDAO {
 		listaDeClientes.remove(cliente);
 	}
 	
-	public void addConta(Cliente cliente, Conta conta) {
-		cliente = buscarCliente(cliente.getCpf());
-		if(cliente == null) {
-			System.out.println("Cliente não encontrado!");
-			return;
-		}
-		cliente.adicionarConta(conta);
-	}
-	
-	public void removerConta(Cliente cliente, Conta conta) {
-		cliente = buscarCliente(cliente.getCpf());
-		if(cliente == null) {
-			System.out.println("Cliente não encontrado");
-			return;
-		}
-		cliente.removerConta(conta);
-	}
 	
 	public Cliente buscarCliente(String cpf) {
 		for(Cliente c : listaDeClientes) {
@@ -56,6 +38,8 @@ public class ClienteDAO {
 	public ArrayList<Cliente> getListaDeClientes() {
 		return listaDeClientes;
 	}
+	
+	
 	
 	
 }

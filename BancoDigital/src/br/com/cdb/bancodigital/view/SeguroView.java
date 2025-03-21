@@ -1,13 +1,7 @@
 package br.com.cdb.bancodigital.view;
 
 import java.util.Scanner;
-
-import br.com.cdb.bancodigital.DAO.ClienteDAO;
-import br.com.cdb.bancodigital.DAO.SeguroDAO;
 import br.com.cdb.bancodigital.service.SeguroService;
-import br.com.cdb.bancodigital.entity.Cliente;
-import br.com.cdb.bancodigital.view.ClienteView;
-import br.com.cdb.bancodigital.service.ClienteService;
 
 public class SeguroView {
 

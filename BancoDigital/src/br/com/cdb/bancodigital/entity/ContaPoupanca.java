@@ -1,11 +1,5 @@
 package br.com.cdb.bancodigital.entity;
 
-import br.com.cdb.bancodigital.entity.Cliente;
-import br.com.cdb.bancodigital.entity.ClienteComum;
-import br.com.cdb.bancodigital.entity.ClienteSuper;
-import br.com.cdb.bancodigital.entity.ClientePremium;
-
-
 public class ContaPoupanca extends Conta { // taxa de rendimento = 0,672%
 
 	public ContaPoupanca(Cliente cliente) {
@@ -30,24 +24,20 @@ public class ContaPoupanca extends Conta { // taxa de rendimento = 0,672%
 	}
 
 	@Override
-	public boolean saque(double valor) {
-		
+	public void saque(double valor) {
+
 		if (valor > saldo && valor < 0) {
 			System.out.println("Não foi possível realizar a operação. Saldo bancário insuficiente");
-			transf = false;
-			return false;
 		} else {
 			retirarSaldo(valor);
 			System.out.println("Seu saque de R$ " + valor + " Foi concluído com êxito");
-			transf = true;
-			return true;
 		}
 
 	}
 
 	@Override
 	public boolean transferencia(double valor, Conta conta) {
-		if (saldo >= valor && valor > 0) {
+		if (saldo >= valor || valor > 0) {
 			conta.addSaldo(valor);
 			System.out.println("Transferência de: R$ " + valor + " concluída");
 			saldo -= valor;
@@ -55,33 +45,33 @@ public class ContaPoupanca extends Conta { // taxa de rendimento = 0,672%
 		}
 
 		else {
-			System.out.println("Não foi possível realizar a operação");
+			System.out.println("Não foi possível realizar a operação, saldo insuficiente da conta de origem");
 			return false;
 		}
 	}
 
 	@Override
 	public void taxa() {
-		
-		if(cliente == null) {
+
+		if (cliente == null) {
 			System.out.println("Cliente não encontrado");
 			return;
 		}
-		
+
 		double taxa = 0;
-		
-		if(cliente instanceof ClienteComum) {
-			taxa =	0.005; //5%
+
+		if (cliente instanceof ClienteComum) {
+			taxa = 0.005; // 5%
 		}
-		
-		else if(cliente instanceof ClienteSuper) {
+
+		else if (cliente instanceof ClienteSuper) {
 			taxa = 0.007;
 		}
-		
-		else if(cliente instanceof ClientePremium) {
+
+		else if (cliente instanceof ClientePremium) {
 			taxa = 0.009;
 		}
-		
+
 		if (saldo <= 0) {
 			System.out.println("Não foi possível render ");
 		} else {
