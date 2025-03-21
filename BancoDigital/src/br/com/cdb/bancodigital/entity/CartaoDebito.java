@@ -113,6 +113,10 @@ public class CartaoDebito extends Cartao {
 	}
 	
 	public void infoDebito() {
+		
+		Cliente cliente = cartao.getCliente(); // preciso pegar o cliente pra querer mostrar ele
+		Conta conta = cartao.getConta();
+		
 		System.out.println("INFORMAÇÕES CARTÃO DE CRÉDITO: \n");
 		System.out.println("Nome: " + cartao.getNome());
 		System.out.println("ID: " + cartao.getId());

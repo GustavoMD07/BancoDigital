@@ -148,6 +148,7 @@ public class ContaService {
 		System.out.println("Saldo: R$" + conta.getSaldo());
 		System.out.println("Tipo de conta: " + conta.getTipoDeConta());
 		System.out.println("Tipo de cliente: " + cliente.getTipoDeCliente());
+		System.out.println("CPF do cliente associado: " + cliente.getCpf());
 		System.out.println("ID da conta: " + conta.getID() + "\n--------------");
 	}
 }

@@ -9,6 +9,8 @@ public abstract class Cartao {
 	private static final AtomicInteger contador = new AtomicInteger(0); // Contador para gerar IDs únicos
 	protected String tipoDeCartao;
 	protected boolean status;
+	
+
 	protected String senha;
 	protected String numCartao;
 	protected Conta conta;
@@ -100,6 +102,15 @@ public abstract class Cartao {
 	public List<Seguro> getSeguros() {
 		return seguros;
 	}
+	
+	public boolean isStatus() {
+		return status;
+	}
+	
+	public String getStatusString() {
+	    return status ? "Ativado" : "Desativado";
+	} //se o status for true, ele retorna ativado, se for false, ele retorna desativado
+	//assim dá pra mostrar no terminal
 
 	public void addSeguro(Seguro seguro) {
 

@@ -26,20 +26,7 @@ public class CartaoCredito extends Cartao {
 		}
 	}
 
-	@Override
-	public void aplicarTaxas() {
-		
-		double exceder = 0.8 * limiteCredito; //80% do limite gasto
-		
-		if (saldoDevedor > 0 && saldoDevedor >= exceder) {
-			double taxa = saldoDevedor * 0.05; //5% se a pessoa não pagou a taxa
-			saldoDevedor += taxa;
-			System.out.println("Taxa de: R$ " + taxa + " aplicada ao saldo devedor");
-			System.out.println("Dica de ouro: pague a fatura do seu cartão de crédito.");
-		} else {
-			System.out.println("Condições para taxas não aplicáveis");
-		}
-	}
+	
 
 	@Override
 	public void realizarPagamento(double valor) {
@@ -64,9 +51,9 @@ public class CartaoCredito extends Cartao {
 	}
 
 	public void pagarFatura(double valor) {
-
+		
 		if (saldoDevedor <= 0) {
-		    System.out.println("A fatura já está paga!");
+		    System.out.println("Não há fatura para pagar");
 		    return;
 		}
 		if (valor < 0) {
@@ -84,12 +71,16 @@ public class CartaoCredito extends Cartao {
 			System.out.println("Fatura paga no valor de: R$ " + valor);
 			System.out.println("Novo saldo devedor: R$ " + saldoDevedor);
 		} else {
-			System.out.println("Saldo insuficiente para o pagamento da fatura :(");
+			System.out.println("Saldo de conta insuficiente para o pagamento da fatura :(");
 		}
 
 	}
 
 	public void InfoCredito() {
+		
+		Cliente cliente = cartao.getCliente(); // preciso pegar o cliente pra querer mostrar ele
+		Conta conta = cartao.getConta();
+		
 		System.out.println("INFORMAÇÕES CARTÃO DE CRÉDITO: \n");
 		System.out.println("Nome: " + cartao.getNome());
 		System.out.println("ID: " + cartao.getId());
@@ -108,6 +99,21 @@ public class CartaoCredito extends Cartao {
 			gastoMensal = 0;
 			mesAtual = hoje;
 			System.out.println("Novo mês detectado. Gastos mensais resetados.");
+		}
+	}
+	
+	@Override
+	public void aplicarTaxas() {
+		
+		double exceder = 0.8 * limiteCredito; //80% do limite gasto
+		
+		if (saldoDevedor > 0 && saldoDevedor >= exceder) {
+			double taxa = saldoDevedor * 0.05; //5% se a pessoa não pagou a taxa
+			saldoDevedor += taxa;
+			System.out.println("Taxa de: R$ " + taxa + " aplicada ao saldo devedor");
+			System.out.println("Dica de ouro: pague a fatura do seu cartão de crédito.");
+		} else {
+			System.out.println("Condições para taxas não aplicáveis");
 		}
 	}
 

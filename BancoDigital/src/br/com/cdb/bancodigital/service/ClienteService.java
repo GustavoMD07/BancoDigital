@@ -42,32 +42,29 @@ public class ClienteService {
 			return;
 		}
 		
-		System.out.println("Digite sua data de nascimento (dd/mm/aaaa)");
-		String dataDigitada = input.nextLine();
-		
-		if(dataDigitada == null) {
-			System.out.println("A data de nascimento não pode ser nula");
-			return;
+		LocalDate dataNascimento = null;
+		while (dataNascimento == null) {
+		    System.out.println("Digite sua data de nascimento (dd/MM/yyyy):");
+		    String dataDigitada = input.nextLine();
+
+		    if (dataDigitada == null || dataDigitada.trim().isEmpty()) {
+		        System.out.println("A data de nascimento não pode ser nula");
+		        continue; //pede a data de novo
+		    }
+
+		    try {
+		        dataNascimento = LocalDate.parse(dataDigitada, dataFormato);
+		        LocalDate idadeMinima = LocalDate.now().minusYears(18);
+		        if (dataNascimento.isAfter(idadeMinima)) {
+		            System.out.println("É necessário ter 18 anos para ser cliente");
+		            return; // se for menor de 18, encerra
+		        } else {
+		            System.out.println("Data correta");
+		        }
+		    } catch (DateTimeParseException e) {
+		        System.out.println("Formato de data inválido! Use o formato dd/MM/yyyy.");
+		    }
 		}
-		
-		try {
-			LocalDate dataNascimento = LocalDate.parse(dataDigitada, dataFormato);
-			
-			LocalDate idadeMinima = LocalDate.now().minusYears(18); 
-			//subtrai 18 anos da data atual, e guarda que o mínimo que o usuário precisa colocar é 18/03/2007
-		
-			if(dataNascimento.isAfter(idadeMinima)) {
-				System.out.println("É necessário ter 18 anos para ser cliente");
-				return;
-			} else {
-				System.out.println("Data correta");
-			}
-		}
-		catch (DateTimeParseException e) {
-            System.out.println("Formato de data inválido! Use o formato dd/MM/yyyy.");
-        } 
-		
-		LocalDate dataNascimento = LocalDate.parse(dataDigitada, dataFormato);
 		
 
 		System.out.println("Digite seu cpf: ");
@@ -195,5 +192,6 @@ public class ClienteService {
 	    System.out.println("Tipo de Cliente: " + cliente.getTipoDeCliente());
 	    System.out.println("--------------------------------\n");
 	}
-
 }
+
+

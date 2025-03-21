@@ -38,13 +38,27 @@ public class CartaoService {
 	}
 
 	public void addCartao() {
-		System.out.println("Digite a senha do cartão: ");
-		String senha = input.nextLine().trim();
 
-		if (senha == null || senha.trim().isEmpty()) {
-			System.out.println("A senha não pode estar vazia");
-			return;
-		}
+		System.out.println("A senha deve conter pelo menos um caractere maísculo e um número");
+		String senha;
+		do {
+			System.out.println("Digite a senha do cartão: ");
+			senha = input.nextLine().trim();
+
+			if (senha == null || senha.trim().isEmpty()) {
+				System.out.println("A senha não pode estar vazia");
+				return;
+			}
+
+			if (senha.length() < 5) {
+				System.out.println("A senha precisa ter mais de cinco digitos!");
+			}
+
+			if (!validarSenha(senha)) {
+				System.out.println("Atenção: a senha deve conter pelo menos um caractere maiúsculo e um número.");
+			}
+
+		} while (!validarSenha(senha));
 
 		System.out.println("Digite o número do cartão ");
 		String num = input.nextLine().trim();
@@ -58,7 +72,7 @@ public class CartaoService {
 
 		Conta conta = contaService.buscarContaPorId();
 		if (conta == null) {
-			System.out.println("Conta vazia");
+			System.out.println("Não existe a conta para o ID referenciado");
 			return;
 		}
 
@@ -97,12 +111,19 @@ public class CartaoService {
 	}
 
 	public void ativarCartao() {
-		
+
 		System.out.println("Digite o ID do cartão que deseja ativar");
 
 		Cartao cartao = buscarCartao();
 		if (cartao == null) {
 			System.out.println("Cartão não encontrado!.");
+			return;
+		}
+		
+		input.nextLine();
+		
+		if(cartao.isStatus()) {
+			System.out.println("Seu cartão já está ativado ");
 			return;
 		}
 
@@ -125,6 +146,12 @@ public class CartaoService {
 			System.out.println("Cartão não encontrado");
 			return;
 		}
+		input.nextLine();
+		
+		if(cartao.isStatus() == false) {
+			System.out.println("Seu cartão já está desativado");
+			return;
+		}
 
 		System.out.println("Digite a senha do cartão que deseja desativar");
 		String senha = input.nextLine();
@@ -139,7 +166,7 @@ public class CartaoService {
 	public void alterarSenha() {
 
 		System.out.println("Digite o id do cartão que deseja alterar a senha");
-	
+
 		Cartao cartao = buscarCartao();
 
 		if (cartao == null) {
@@ -147,13 +174,33 @@ public class CartaoService {
 			return;
 		}
 
+		input.nextLine();
+
 		System.out.println("Agora digite a senha antiga para poder redefinir");
 		String senhaAntiga = input.nextLine();
-
-		System.out.println("Digite a nova senha do cartão");
-		String novaSenha = input.nextLine();
-
 		if (verificarSenha(cartao, senhaAntiga)) {
+			System.out.println("Senha antiga correta");
+			String novaSenha;
+
+			do {
+				System.out.println("Digite a nova senha do cartão:");
+				novaSenha = input.nextLine();
+
+				if (novaSenha == null || novaSenha.trim().isEmpty()) {
+					System.out.println("A senha não pode estar vazia");
+					return;
+				}
+				if (novaSenha.length() < 5) {
+					System.out.println("A senha não pode ter menos de cinco digitos");
+				}
+
+				if (!validarSenha(novaSenha)) {
+					System.out.println(
+							"A senha deve conter pelo menos um caractere maiúsculo e um número. Tente novamente.");
+				}
+				// aqui eu continuo pedindo pro usuário digitar a senha até ser aceita
+			} while (!validarSenha(novaSenha));
+
 			cartao.alterarSenha(novaSenha);
 			System.out.println("Senha do cartão alterada com sucesso! \n nova senha: " + novaSenha);
 		} else {
@@ -188,7 +235,7 @@ public class CartaoService {
 	}
 
 	public void realizarPagamento() {
-		
+
 		System.out.println("Digite o ID do cartão que deseja realizar o pagamento: ");
 		Cartao cartao = buscarCartao();
 
@@ -208,6 +255,53 @@ public class CartaoService {
 			}
 		}
 	}
+	
+	public void alterarLimiteDiario() {
+		
+		System.out.println("Digite o ID do cartão que deseja alterar o limite diário: ");
+		Cartao cartao = buscarCartao();
+		
+		if(cartao == null) {
+			System.out.println("Cartão não existe");
+			return;
+		}
+		
+		if(cartao instanceof CartaoCredito) {
+			System.out.println("Não existe limite diário para o cartão de crédito");
+			return;
+		}
+		
+		System.out.println("Digite o novo valor do limite diário do cartão de débito");
+		double novoLimiteDiario = input.nextDouble();
+		
+		CartaoDebito cartaoDebito = (CartaoDebito) cartao;
+		//"Olha, esse objeto cartao é na real um CartaoDebito, então trata ele como tal."
+		//converte o objeto cartao pra um cartao de débito
+		cartaoDebito.alterarLimiteDiario(novoLimiteDiario);
+	}
+	
+	public void pagarFatura() {
+		
+		System.out.println("Digite o ID do cartão que deseja pagar a fatura: ");
+		Cartao cartao = buscarCartao();
+		
+		if(cartao == null) {
+			System.out.println("Cartão não existe");
+			return;
+		}
+		
+		if(cartao instanceof CartaoDebito) {
+			System.out.println("Não é possível pagar a fatura de um cartão de débito, apenas crédito");
+			return;
+		}
+		
+		System.out.println("Digite o valor para pagar a fatura do cartão");
+		double valor = input.nextDouble();
+		
+		//converte o cartão para CartaoCredito, eu sei que ele vai ser crédito, então faço o Cast
+	    CartaoCredito cartaoCredito = (CartaoCredito) cartao;
+		cartaoCredito.pagarFatura(valor);
+	}
 
 	public void infoCartao() {
 
@@ -225,7 +319,7 @@ public class CartaoService {
 
 			CartaoCredito cartaoCredito = (CartaoCredito) cartao; // aqui a mesma coisa
 
-			System.out.println("INFORMAÇÕES CARTÃO DE CRÉDITO: \n");
+			System.out.println("\n--- INFORMAÇÕES DO CARTÃO DE CRÉDITO ---");
 			System.out.println("Nome: " + cartao.getNome());
 			System.out.println("ID: " + cartao.getId());
 			System.out.println("Numéro do cartão: " + cartao.getNumCartao());
@@ -233,15 +327,17 @@ public class CartaoService {
 			System.out.println("Tipo de cartão: " + cartao.getTipoDeCartao());
 			System.out.println("Tipo de conta do titular: " + conta.getTipoDeConta());
 			System.out.println("Tipo de cliente: " + cliente.getTipoDeCliente());
+			System.out.println("Status do cartão: " + cartao.getStatusString());
 			System.out.println("Limite do cartão de crédito: R$ " + cartaoCredito.getLimiteCredito());
 			System.out.println("Saldo devedor: R$ " + cartaoCredito.getSaldoDevedor());
+			System.out.println("--------------------------------\n");
 		}
-		
+
 		if (cartao instanceof CartaoDebito) {
 
 			CartaoDebito cartaoDebito = (CartaoDebito) cartao;
 
-			System.out.println("INFORMAÇÕES CARTÃO DE DÉBITO: \n");
+			System.out.println("\n--- INFORMAÇÕES DO CARTÃO DE DÉBITO ---");
 			System.out.println("Nome: " + cartao.getNome());
 			System.out.println("ID: " + cartao.getId());
 			System.out.println("Numéro do cartão: " + cartao.getNumCartao());
@@ -249,8 +345,19 @@ public class CartaoService {
 			System.out.println("Tipo de cartão: " + cartao.getTipoDeCartao());
 			System.out.println("Tipo de conta do titular: " + conta.getTipoDeConta());
 			System.out.println("Tipo de cliente: " + cliente.getTipoDeCliente());
+			System.out.println("Status do cartão: " + cartao.getStatusString());
 			System.out.println("Limite diário: R$ " + cartaoDebito.getLimiteDiario());
+			System.out.println("--------------------------------\n");
 		}
 	}
 
+	public ClienteService getClienteService() {
+		return this.clienteService;
+	}
+
+	public boolean validarSenha(String senha) {
+		// exige pelo menos uma letra maiúscula e um dígito
+		String regex = "^(?=.*[A-Z])(?=.*\\d).+$";
+		return senha.matches(regex);
+	}
 }
